@@ -1,20 +1,33 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>Recetas</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Buscar recetas..."></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content >
+  <swiper-container >
+
+    <swiper-slide class="bg-color-slide">
+      <h1 class="title1">Hola soy un slide 1  </h1>
+      <img src="/assets/img/user.jpg" alt="user">
+      <p>Hola soy un texto que va en el slider</p>
+    </swiper-slide>
+
+    <swiper-slide>
+      <h1>Hola soy un slide 2</h1>
+      <ion-icon name="cafe-outline"></ion-icon>
+      <p>Hola soy un texto que va en el slider</p>
+    </swiper-slide>
+
+    <swiper-slide>
+      <h1>Hola soy un slide 3</h1>
+
+      <p>Hola soy un texto que va en el slider</p>
+    </swiper-slide>
+
+  </swiper-container>
 </ion-content>
