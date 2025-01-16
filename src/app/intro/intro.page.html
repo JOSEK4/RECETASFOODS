@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Recetas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/favorites">
+        <ion-icon name="heart-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Buscar recetas..."></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content >
+  <swiper-container >
+
+    <swiper-slide class="bg-color-slide">
+      <h1 class="title1">Hola soy un slide 1  </h1>
+      <img src="/assets/img/user.jpg" alt="user">
+      <p>Hola soy un texto que va en el slider</p>
+    </swiper-slide>
+
+    <swiper-slide>
+      <h1>Hola soy un slide 2</h1>
+      <ion-icon name="cafe-outline"></ion-icon>
+      <p>Hola soy un texto que va en el slider</p>
+    </swiper-slide>
+
+    <swiper-slide>
+      <h1>Hola soy un slide 3</h1>
+
+      <p>Hola soy un texto que va en el slider</p>
+    </swiper-slide>
+
+    <swiper-slide>
+
+      <h1>Hola soy un slide 4</h1>
+
+
+      <p>Hola soy un texto que va en el slider</p>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
