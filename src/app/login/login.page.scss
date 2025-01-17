@@ -1,0 +1,53 @@
+ion-content {
+  --background: #dae1f3; /* Fondo claro para la página */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  height: 100%; /* Asegura que ocupe toda la pantalla */
+}
+
+
+ion-avatar {
+  margin-bottom: 20px;
+  width: 120px;
+  height: 120px;
+  border: 2px solid #3880ff; /* Borde azul */
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover
+}
+
+ion-item {
+  --border-radius: 10px; /* Bordes redondeados */
+  --background: white; /* Fondo blanco */
+  --padding-start: 16px;
+  --inner-padding-end: 16px;
+  margin: 10px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+ion-input, ion-label {
+  font-size: 14px; /* Tamaño de texto */
+}
+
+ion-button {
+  margin-top: 20px;
+  --background: #3880ff; /* Azul Ionic */
+  --border-radius: 10px;
+  --padding-start: 20px;
+  --padding-end: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+ion-label[color="danger"] {
+  font-size: 12px;
+  margin-top: 4px;
+  color: #eb445a; /* Rojo Ionic */
+}

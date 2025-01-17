@@ -12,6 +12,11 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-content>
+  <swiper-container
+  slides-per-view="1"
+  pagination="true"
+  >
 
 <ion-content >
   <swiper-container >
@@ -35,11 +40,14 @@
     </swiper-slide>
 
     <swiper-slide>
-
+      <ion-icon name="close" class="close-icon" (click)="finish()"></ion-icon>
       <h1>Hola soy un slide 4</h1>
 
-
+      <ion-icon name="battery-charging-outline"></ion-icon>
       <p>Hola soy un texto que va en el slider</p>
+
+      <ion-button  (click)="finish()">Llevame al home</ion-button>
+
     </swiper-slide>
   </swiper-container>
 </ion-content>
