@@ -1,5 +1,6 @@
+/* Fondo general */
 ion-content {
-  --background: #dae1f3; /* Fondo claro para la página */
+  --background: #f3f4f7; /* Fondo claro y moderno */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,46 +9,55 @@ ion-content {
   height: 100%; /* Asegura que ocupe toda la pantalla */
 }
 
-
-ion-avatar {
-  margin-bottom: 20px;
-  width: 120px;
-  height: 120px;
-  border: 2px solid #3880ff; /* Borde azul */
-  border-radius: 50%;
-  overflow: hidden;
+/* Avatar centrado */
+.avatar-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  object-fit: cover
+  margin-bottom: 20px; /* Espaciado inferior */
 }
 
+.avatar {
+  width: 100px; /* Tamaño del avatar */
+  height: 100px;
+  border-radius: 50%; /* Imagen circular */
+  border: 3px solid #3880ff; /* Borde azul */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra decorativa */
+  object-fit: cover; /* Ajustar imagen */
+}
+
+/* Estilo de los campos del formulario */
 ion-item {
   --border-radius: 10px; /* Bordes redondeados */
   --background: white; /* Fondo blanco */
-  --padding-start: 16px;
-  --inner-padding-end: 16px;
-  margin: 10px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  margin: 10px 0; /* Espaciado vertical */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
 }
 
-ion-input, ion-label {
-  font-size: 14px; /* Tamaño de texto */
+ion-input {
+  font-size: 14px; /* Tamaño del texto */
 }
 
+/* Botón estilizado */
 ion-button {
-  margin-top: 20px;
-  --background: #3880ff; /* Azul Ionic */
-  --border-radius: 10px;
-  --padding-start: 20px;
-  --padding-end: 20px;
+  margin-top: 20px; /* Espaciado superior */
+  --background: #3880ff; /* Azul de Ionic */
+  --border-radius: 8px; /* Bordes redondeados */
   font-size: 16px;
-  font-weight: bold;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra */
+  font-weight: bold; /* Texto en negrita */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra decorativa */
+}
+
+/* Mensajes de error */
+.error-container {
+  margin: 5px 0 15px; /* Espaciado superior e inferior */
 }
 
 ion-label[color="danger"] {
-  font-size: 12px;
-  margin-top: 4px;
-  color: #eb445a; /* Rojo Ionic */
+  font-size: 12px; /* Texto más pequeño */
+  margin-left: 5px;
+}
+
+.error-message {
+  margin-top: 15px; /* Espaciado superior */
+  text-align: center; /* Centrar el texto */
 }

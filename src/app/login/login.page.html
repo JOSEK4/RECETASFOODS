@@ -1,55 +1,66 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title> Login</ion-title>
+    <ion-title>Iniciar Sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
-  <ion-avatar>
-    <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+<ion-content class="ion-padding">
+  <!-- Avatar centrado -->
+  <figure class="avatar-container">
+    <img
+      class="avatar"
+      alt="Usuario"
+      src="https://ionicframework.com/docs/img/demos/avatar.svg"
+    />
+  </figure>
 
-  </ion-avatar>
- <form [formGroup]="loginForm">
-  <!-- campo Email-->
-  <ion-item>
+  <!-- Formulario -->
+  <form [formGroup]="loginForm">
+    <!-- Campo Email -->
+    <ion-item>
+      <ion-input
+        label="Correo electrónico"
+        labelPlacement="floating"
+        placeholder="ejemplo@correo.com"
+        formControlName="email">
+      </ion-input>
+    </ion-item>
+    <!-- Mostrar errores del campo Email -->
+    <div class="error-container">
+      <ng-container *ngFor="let error of formErrors.email">
+        <ion-label color="danger" *ngIf="loginForm.get('email')?.hasError(error.type) && loginForm.get('email')?.dirty">
+          {{ error.message }}
+        </ion-label>
+      </ng-container>
+    </div>
 
-      <ion-input label="Email" labelPlacement="floating" placeholder="example@email.com" formControlName="email" ></ion-input>
+    <!-- Campo Contraseña -->
+    <ion-item>
+      <ion-input
+        label="Contraseña"
+        labelPlacement="floating"
+        type="password"
+        placeholder="********"
+        formControlName="password">
+      </ion-input>
+    </ion-item>
+    <!-- Mostrar errores del campo Contraseña -->
+    <div class="error-container">
+      <ng-container *ngFor="let error of formErrors.password">
+        <ion-label color="danger" *ngIf="loginForm.get('password')?.hasError(error.type) && loginForm.get('password')?.dirty">
+          {{ error.message }}
+        </ion-label>
+      </ng-container>
+    </div>
 
-  </ion-item>
-  <div>
-    <!-- mostrar errores del campo email-->
-    <ng-container *ngFor="let error of formErrors.email">
-      <ion-label color="danger" *ngIf="(loginForm.get('email')?.hasError(error.type) && loginForm.get('email')?.dirty)">
-        {{ error.message }}</ion-label>
-    </ng-container>
+    <!-- Botón Iniciar Sesión -->
+    <ion-button expand="block" type="submit" [disabled]="loginForm.invalid" (click)="onLogin()">
+      Iniciar Sesión
+    </ion-button>
 
-  </div>
-  <ion-item>
-    <ion-input
-      label="Contraseña"
-      labelPlacement="floating"
-      type="password"
-      placeholder="********"
-      formControlName="password">
-    </ion-input>
-  </ion-item>
-  <div>
-    <!-- Mostrar errores del campo contraseña -->
-    <ng-container *ngFor="let error of formErrors.password">
-      <ion-label color="danger" *ngIf="loginForm.get('password')?.hasError(error.type) && loginForm.get('password')?.dirty">
-        {{ error.message }}
-      </ion-label>
-    </ng-container>
-  </div>
-
-  <!-- Botón Iniciar Sesión -->
-  <ion-button expand="full" type="submit" [disabled]="loginForm.invalid" (click)="onLogin()">
-    Iniciar Sesión
-  </ion-button>
-
-  <ion-label color="danger" *ngIf="errorMessage">{{ errorMessage }}</ion-label>
-
-
- </form>
-
+    <!-- Mensaje de error general -->
+    <ion-label class="error-message" color="danger" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </ion-label>
+  </form>
 </ion-content>
