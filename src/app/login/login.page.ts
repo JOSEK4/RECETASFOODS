@@ -1,53 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl,FormBuilder,FormGroup,Validators} from '@angular/forms';
-import { Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage-angular';
+import * as CryptoJS from 'crypto-js';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  standalone: false,
+  standalone: false
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
   loginForm: FormGroup;
-  errorMessage: any;
-  formErrors= {
-    email:[
-      { type: 'required', message: 'El correo es obligatorio' },
-      { type: 'email', message: 'Ingresa un correo válido' },
-    ],
-   password:[{ type: 'required', message: 'La contraseña es obligatoria' },
-    { type: 'minlength', message: 'La contraseña debe tener al menos 6 caracteres' },
-  ],
-  };
+  errorMessage: string = ''; // Define la propiedad
+
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router) {
+    private router: Router,
+    private storage: Storage,
+    private alertController: AlertController
+  ) {
     this.loginForm = this.formBuilder.group({
-      email: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.email
-      ])),
-      password: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.minLength(6)
-      ]))
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
     });
-   }
+  }
 
-  ngOnInit() {}
-
-  onLogin() {
+  async onLogin() {
     if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      //  autenticación
-      if (email === 'usuario@example.com' && password === '123456') {
-        this.router.navigate(['/home']); // Redirige a la página principal
+      const email = this.loginForm.get('email')?.value;
+      const password = this.loginForm.get('password')?.value;
+
+      const storedEmail = await this.storage.get('userEmail');
+      const storedEncryptedPassword = await this.storage.get('userPassword');
+
+      if (storedEmail && storedEncryptedPassword) {
+        const bytes = CryptoJS.AES.decrypt(storedEncryptedPassword, 'secret-key');
+        const storedPassword = bytes.toString(CryptoJS.enc.Utf8);
+
+        if (email === storedEmail && password === storedPassword) {
+          this.router.navigate(['/home']);
+        } else {
+          this.errorMessage = 'Credenciales incorrectas.';
+        }
       } else {
-        this.errorMessage = 'Credenciales incorrectas. Inténtalo de nuevo.';
+        this.errorMessage = 'No hay usuarios registrados. Por favor, regístrate.';
       }
     } else {
-      this.errorMessage = 'Por favor, completa los campos correctamente.';
+      this.errorMessage = 'Por favor, completa todos los campos correctamente.';
     }
   }
 }

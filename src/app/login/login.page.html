@@ -27,11 +27,12 @@
     </ion-item>
     <!-- Mostrar errores del campo Email -->
     <div class="error-container">
-      <ng-container *ngFor="let error of formErrors.email">
-        <ion-label color="danger" *ngIf="loginForm.get('email')?.hasError(error.type) && loginForm.get('email')?.dirty">
-          {{ error.message }}
-        </ion-label>
-      </ng-container>
+      <ion-label *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched" color="danger">
+        El correo electrónico es obligatorio.
+      </ion-label>
+      <ion-label *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched" color="danger">
+        Ingresa un correo electrónico válido.
+      </ion-label>
     </div>
 
     <!-- Campo Contraseña -->
@@ -46,11 +47,9 @@
     </ion-item>
     <!-- Mostrar errores del campo Contraseña -->
     <div class="error-container">
-      <ng-container *ngFor="let error of formErrors.password">
-        <ion-label color="danger" *ngIf="loginForm.get('password')?.hasError(error.type) && loginForm.get('password')?.dirty">
-          {{ error.message }}
-        </ion-label>
-      </ng-container>
+      <ion-label *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched" color="danger">
+        La contraseña es obligatoria.
+      </ion-label>
     </div>
 
     <!-- Botón Iniciar Sesión -->
