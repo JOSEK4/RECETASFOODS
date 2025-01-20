@@ -8,46 +8,120 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar placeholder="Buscar recetas..."></ion-searchbar>
+    <ion-searchbar placeholder="Buscar recetas..." showCancelButton="focus"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <swiper-container
-  slides-per-view="1"
-  pagination="true"
+    slides-per-view="1"
+    pagination="true"
+    autoplay-delay="3000"
+    loop="true"
   >
-
-<ion-content >
-  <swiper-container >
-
-    <swiper-slide class="bg-color-slide">
-      <h1 class="title1">Hola soy un slide 1  </h1>
-      <img src="/assets/img/user.jpg" alt="user">
-      <p>Hola soy un texto que va en el slider</p>
+    <swiper-slide class="slide slide-1">
+      <h1 class="title">Bienvenido a Recetas</h1>
+      <img src="/assets/img/user.jpg" alt="Imagen de usuario" class="slide-img" />
+      <p class="description">Encuentra y guarda tus recetas favoritas</p>
     </swiper-slide>
 
-    <swiper-slide>
-      <h1>Hola soy un slide 2</h1>
-      <ion-icon name="cafe-outline"></ion-icon>
-      <p>Hola soy un texto que va en el slider</p>
+    <swiper-slide class="slide slide-2">
+      <h1 class="title">Explora nuevas ideas</h1>
+      <ion-icon name="cafe-outline" class="icon"></ion-icon>
+      <p class="description">Descubre recetas inspiradoras para cada ocasión</p>
     </swiper-slide>
 
-    <swiper-slide>
-      <h1>Hola soy un slide 3</h1>
-
-      <p>Hola soy un texto que va en el slider</p>
+    <swiper-slide class="slide slide-3">
+      <h1 class="title">Comparte tus recetas</h1>
+      <p class="description">Únete a nuestra comunidad y comparte tus creaciones</p>
     </swiper-slide>
 
-    <swiper-slide>
+    <swiper-slide class="slide slide-4">
       <ion-icon name="close" class="close-icon" (click)="finish()"></ion-icon>
-      <h1>Hola soy un slide 4</h1>
-
-      <ion-icon name="battery-charging-outline"></ion-icon>
-      <p>Hola soy un texto que va en el slider</p>
-
-      <ion-button  (click)="finish()">Llevame al home</ion-button>
-
+      <h1 class="title">¡Comienza ahora!</h1>
+      <ion-icon name="battery-charging-outline" class="icon"></ion-icon>
+      <p class="description">Haz clic para ir al inicio y explorar las recetas</p>
+      <ion-button expand="block" color="primary" (click)="finish()">Ir al Home</ion-button>
     </swiper-slide>
   </swiper-container>
 </ion-content>
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Recetas recomendadas</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img src="/assets/img/pancakes.jpg" alt="Receta 1" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>Pancakes</h2>
+          <p>Perfecta para desayuno</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img src="/assets/img/ensalada-cesar.jpg" alt="Receta 2" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>Ensalada César</h2>
+          <p>Ideal para una comida ligera</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
+<ion-button expand="block" color="primary" size="large" routerLink="/home">
+  Explorar todas las recetas
+</ion-button>
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Qué dicen nuestros usuarios</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="/assets/img/maria.jng" alt="Usuario 1" />
+      </ion-avatar>
+      <ion-label>
+        <h3>María López</h3>
+        <p>"Me encanta esta app, las recetas son increíbles."</p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="/assets/img/user2.jpg" alt="Usuario 2" />
+      </ion-avatar>
+      <ion-label>
+        <h3>Carlos Pérez</h3>
+        <p>"Las recetas rápidas me salvaron el día."</p>
+      </ion-label>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Suscríbete a nuestro boletín</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-input placeholder="Ingresa tu correo electrónico" type="email"></ion-input>
+    <ion-button expand="block" color="secondary">Suscribirme</ion-button>
+  </ion-card-content>
+</ion-card>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button href="https://facebook.com" target="_blank">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </ion-button>
+      <ion-button href="https://instagram.com" target="_blank">
+        <ion-icon name="logo-instagram"></ion-icon>
+      </ion-button>
+      <ion-button href="https://twitter.com" target="_blank">
+        <ion-icon name="logo-twitter"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
