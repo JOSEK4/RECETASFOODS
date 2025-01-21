@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage-angular';
 import * as CryptoJS from 'crypto-js';
 import { AlertController } from '@ionic/angular';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -50,5 +51,10 @@ export class LoginPage {
     } else {
       this.errorMessage = 'Por favor, completa todos los campos correctamente.';
     }
+  }
+
+  // Método para redirigir al registro
+  goToRegister() {
+    this.router.navigate(['/registro']);  // Redirige a la página de registro
   }
 }

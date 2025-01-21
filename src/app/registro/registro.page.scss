@@ -60,3 +60,13 @@ ion-label[color="danger"] {
   margin-top: 15px; /* Espaciado superior */
   text-align: center; /* Centrar el texto */
 }
+ion-button {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-icon {
+  margin-right: 10px;
+}

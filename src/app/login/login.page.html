@@ -61,5 +61,10 @@
     <ion-label class="error-message" color="danger" *ngIf="errorMessage">
       {{ errorMessage }}
     </ion-label>
+
+    <!-- Botón para redirigir al registro -->
+    <ion-button expand="block" (click)="goToRegister()">
+      Crear cuenta
+    </ion-button>
   </form>
 </ion-content>

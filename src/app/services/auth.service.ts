@@ -1,44 +1,44 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Storage } from '@ionic/storage-angular';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private isAuthenticated = new BehaviorSubject<boolean>(false); // Estado de autenticación
-
-  constructor() {}
-
-  /**
-   * Inicia sesión con un correo y contraseña
-   * @param email - Correo electrónico del usuario
-   * @param password - Contraseña del usuario
-   * @returns Observable<boolean> - Indica si la autenticación fue exitosa
-   */
-  login(email: string, password: string): Observable<boolean> {
-    // Simular autenticación exitosa
-    if (email === 'user@example.com' && password === 'password123') {
-      this.isAuthenticated.next(true);
-      return new BehaviorSubject(true).asObservable();
-    } else {
-      this.isAuthenticated.next(false);
-      return new BehaviorSubject(false).asObservable();
-    }
+  constructor(private storage: Storage, private router: Router) {
+    // Inicializa Ionic Storage
+    this.storage.create();
   }
 
-  /**
-   * Cierra la sesión del usuario
-   */
-  logout(): void {
-    this.isAuthenticated.next(false);
+  // Método para verificar si el usuario está autenticado
+  async isAuthenticated(): Promise<boolean> {
+    const userEmail = await this.storage.get('userEmail');
+    const userPassword = await this.storage.get('userPassword');
+    return !!(userEmail && userPassword); // Si ambos valores existen, está autenticado
   }
 
-  /**
-   * Verifica si el usuario está autenticado
-   * @returns Observable<boolean> - Estado de autenticación
-   */
-  isLoggedIn(): Observable<boolean> {
-    return this.isAuthenticated.asObservable();
+  // Método para obtener el correo del usuario (si está autenticado)
+  async getUserEmail(): Promise<string | null> {
+    return await this.storage.get('userEmail');
+  }
+
+  // Método para guardar la información del usuario después de iniciar sesión o registrarse
+  async setUserCredentials(email: string, password: string): Promise<void> {
+    const encryptedPassword = CryptoJS.AES.encrypt(password, 'secret-key').toString();
+    await this.storage.set('userEmail', email);
+    await this.storage.set('userPassword', encryptedPassword);
+  }
+
+  // Método para cerrar sesión
+  async logout(): Promise<void> {
+    await this.storage.remove('userEmail');
+    await this.storage.remove('userPassword');
+    this.router.navigate(['/login']); // Redirige al login
+  }
+
+  // Método para obtener la contraseña encriptada
+  async getUserPassword(): Promise<string | null> {
+    return await this.storage.get('userPassword');
   }
 }
-

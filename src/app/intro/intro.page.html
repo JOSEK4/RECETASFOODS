@@ -19,33 +19,48 @@
     autoplay-delay="3000"
     loop="true"
   >
-    <swiper-slide class="slide slide-1">
-      <h1 class="title">Bienvenido a Recetas</h1>
-      <img src="/assets/img/user.jpg" alt="Imagen de usuario" class="slide-img" />
-      <p class="description">Encuentra y guarda tus recetas favoritas</p>
+    <!-- Primer slide con imagen de fondo -->
+    <swiper-slide class="slide">
+      <div class="slide-background" style="background-image: url('/assets/img/intro.jpg');"></div>
+      <div class="slide-content">
+        <h1 class="title">Bienvenido a Recetas</h1>
+        <p class="description">Encuentra y guarda tus recetas favoritas</p>
+      </div>
     </swiper-slide>
 
-    <swiper-slide class="slide slide-2">
-      <h1 class="title">Explora nuevas ideas</h1>
-      <ion-icon name="cafe-outline" class="icon"></ion-icon>
-      <p class="description">Descubre recetas inspiradoras para cada ocasión</p>
+    <!-- Segundo slide con imagen de fondo -->
+    <swiper-slide class="slide">
+      <div class="slide-background" style="background-image: url('/assets/img/intro.jpg');"></div>
+      <div class="slide-content">
+        <h1 class="title">Explora nuevas ideas</h1>
+        <p class="description">Descubre recetas inspiradoras para cada ocasión</p>
+      </div>
     </swiper-slide>
 
-    <swiper-slide class="slide slide-3">
-      <h1 class="title">Comparte tus recetas</h1>
-      <p class="description">Únete a nuestra comunidad y comparte tus creaciones</p>
+    <!-- Tercer slide con imagen de fondo -->
+    <swiper-slide class="slide">
+      <div class="slide-background" style="background-image: url('/assets/img/intro.jpg');"></div>
+      <div class="slide-content">
+        <h1 class="title">Comparte tus recetas</h1>
+        <p class="description">Únete a nuestra comunidad y comparte tus creaciones</p>
+      </div>
     </swiper-slide>
 
-    <swiper-slide class="slide slide-4">
-      <ion-icon name="close" class="close-icon" (click)="finish()"></ion-icon>
-      <h1 class="title">¡Comienza ahora!</h1>
-      <ion-icon name="battery-charging-outline" class="icon"></ion-icon>
-      <p class="description">Haz clic para ir al inicio y explorar las recetas</p>
-      <ion-button expand="block" color="primary" (click)="finish()">Ir al Home</ion-button>
+    <!-- Cuarto slide con imagen de fondo -->
+    <swiper-slide class="slide">
+      <div class="slide-background" style="background-image: url('/assets/img/intro.jpg');"></div>
+      <div class="slide-content">
+        <ion-icon name="close" class="close-icon" (click)="finish()"></ion-icon>
+        <h1 class="title">¡Comienza ahora!</h1>
+        <ion-icon name="battery-charging-outline" class="icon"></ion-icon>
+        <p class="description">Haz clic para ir al inicio y explorar las recetas</p>
+        <ion-button expand="block" color="primary" (click)="finish()">Ir al Home</ion-button>
+      </div>
     </swiper-slide>
   </swiper-container>
 </ion-content>
 
+<!-- Resto del contenido como las recetas recomendadas -->
 <ion-card>
   <ion-card-header>
     <ion-card-title>Recetas recomendadas</ion-card-title>
@@ -73,9 +88,12 @@
     </ion-list>
   </ion-card-content>
 </ion-card>
+
 <ion-button expand="block" color="primary" size="large" routerLink="/home">
   Explorar todas las recetas
 </ion-button>
+
+<!-- Testimonios -->
 <ion-card>
   <ion-card-header>
     <ion-card-title>Qué dicen nuestros usuarios</ion-card-title>
@@ -83,7 +101,7 @@
   <ion-card-content>
     <ion-item>
       <ion-avatar slot="start">
-        <img src="/assets/img/maria.jng" alt="Usuario 1" />
+        <img src="/assets/img/maria.jpg" alt="Usuario 1" />
       </ion-avatar>
       <ion-label>
         <h3>María López</h3>
@@ -101,6 +119,7 @@
     </ion-item>
   </ion-card-content>
 </ion-card>
+
 <ion-card>
   <ion-card-header>
     <ion-card-title>Suscríbete a nuestro boletín</ion-card-title>
@@ -110,6 +129,7 @@
     <ion-button expand="block" color="secondary">Suscribirme</ion-button>
   </ion-card-content>
 </ion-card>
+
 <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="end">

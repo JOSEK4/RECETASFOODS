@@ -1,16 +1,24 @@
-import { TestBed } from '@angular/core/testing';
+import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage-angular';
+import { Router } from '@angular/router';
 
-import { AuthService } from './auth.service';
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthService {
+  constructor(private storage: Storage, private router: Router) {}
 
-describe('AuthService', () => {
-  let service: AuthService;
+  // Método para verificar si el usuario está logueado
+  async isAuthenticated(): Promise<boolean> {
+    const userEmail = await this.storage.get('userEmail');
+    const userPassword = await this.storage.get('userPassword');
+    return !!(userEmail && userPassword); // Retorna true si existen ambos valores
+  }
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(AuthService);
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+  // Método para cerrar sesión
+  async logout() {
+    await this.storage.remove('userEmail');
+    await this.storage.remove('userPassword');
+    this.router.navigate(['/login']);
+  }
+}
