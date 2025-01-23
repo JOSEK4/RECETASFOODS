@@ -55,6 +55,6 @@ export class LoginPage {
 
   // Método para redirigir al registro
   goToRegister() {
-    this.router.navigate(['/registro']);  // Redirige a la página de registro
+    this.router.navigate(['/register']);  // Redirige a la página de registro
   }
 }

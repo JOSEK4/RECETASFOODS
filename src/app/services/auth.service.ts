@@ -1,44 +1,81 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage-angular';
-import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
-  constructor(private storage: Storage, private router: Router) {
-    // Inicializa Ionic Storage
-    this.storage.create();
+  urlServer = 'http://51.79.26.171';
+  //urlServer = 'http://localhost:3000';
+  httpHeaders = { headers: new HttpHeaders({"Content-Type": "application/json"})};
+
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  login(credentials: any){
+    return new Promise((accept, reject) => {
+      let params = {
+        "user": {
+          "email": credentials.email,
+          "password": credentials.password
+         }
+      }
+      this.http.post(`${this.urlServer}/login`, params, this.httpHeaders).subscribe(
+        (data: any)=>{
+          console.log(data);
+          if (data.status == 'OK'){
+            accept(data);
+          }else{
+            reject(data.errors);
+          }
+        },
+        (error) => {
+          console.log(error);
+          if (error.status == 422){
+            reject('Usuario o contraseña incorrectos');
+          } else if (error.status == 500){
+            reject('Error Porfavor intenta mas tarde');
+          }else{
+            reject('Error al intentar iniciar sesión');
+          }
+        }
+      )
+    });
   }
 
-  // Método para verificar si el usuario está autenticado
-  async isAuthenticated(): Promise<boolean> {
-    const userEmail = await this.storage.get('userEmail');
-    const userPassword = await this.storage.get('userPassword');
-    return !!(userEmail && userPassword); // Si ambos valores existen, está autenticado
-  }
-
-  // Método para obtener el correo del usuario (si está autenticado)
-  async getUserEmail(): Promise<string | null> {
-    return await this.storage.get('userEmail');
-  }
-
-  // Método para guardar la información del usuario después de iniciar sesión o registrarse
-  async setUserCredentials(email: string, password: string): Promise<void> {
-    const encryptedPassword = CryptoJS.AES.encrypt(password, 'secret-key').toString();
-    await this.storage.set('userEmail', email);
-    await this.storage.set('userPassword', encryptedPassword);
-  }
-
-  // Método para cerrar sesión
-  async logout(): Promise<void> {
-    await this.storage.remove('userEmail');
-    await this.storage.remove('userPassword');
-    this.router.navigate(['/login']); // Redirige al login
-  }
-
-  // Método para obtener la contraseña encriptada
-  async getUserPassword(): Promise<string | null> {
-    return await this.storage.get('userPassword');
+  register(data: any){
+    return new Promise((accept, reject) => {
+      let params = {
+        "user": {
+          "email": data.email,
+          "password": data.password,
+          "password_confirmation": data.password_confirmation,
+          "name": data.name,
+          "last_name": data.last_name,
+          "username": data.username
+        }
+      }
+      this.http.post(`${this.urlServer}/signup`, params, this.httpHeaders).subscribe(
+        (data: any)=>{
+          console.log(data);
+          if (data.status == 'OK'){
+            accept(data);
+          }else{
+            reject(data.errors);
+          }
+        },
+        (error) => {
+          console.log(error);
+          if (error.status == 422){
+            reject(error.error.errors);
+          } else if (error.status == 500){
+            reject('Error Porfavor intenta mas tarde');
+          }else{
+            reject('Error al intentar registrarse');
+          }
+        }
+      )
+    });
   }
 }
