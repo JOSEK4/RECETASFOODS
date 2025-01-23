@@ -4,9 +4,6 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IonicStorageModule } from '@ionic/storage-angular';  // Importa IonicStorageModule
-import { RouteReuseStrategy } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
-
 
 @NgModule({
   declarations: [AppComponent],

@@ -1,52 +1,45 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Storage } from '@ionic/storage-angular';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  urlServer = 'http://51.79.26.171'; // Dirección del servidor
-  // urlServer = 'http://localhost:3000'; // Alternativa local para desarrollo
-  httpHeaders = { headers: new HttpHeaders({ "Content-Type": "application/json" }) };
-
-  constructor(private http: HttpClient) {}
-
-  /**
-   * Registrar un nuevo usuario.
-   * @param userData - Objeto con la información del usuario (email, password, etc.).
-   * @returns Observable con la respuesta del servidor.
-   */
-  registerUser(userData: any): Observable<any> {
-    const url = `${this.urlServer}/register`;
-    return this.http.post(url, userData, this.httpHeaders);
+  constructor(private storage: Storage, private router: Router) {
+    // Inicializa Ionic Storage
+    this.storage.create();
   }
 
-  /**
-   * Autenticar un usuario.
-   * @param loginData - Objeto con las credenciales del usuario (email y password).
-   * @returns Observable con el token o la respuesta del servidor.
-   */
-  loginUser(loginData: any): Observable<any> {
-    const url = `${this.urlServer}/login`;
-    return this.http.post(url, loginData, this.httpHeaders);
-  }
-
-  /**
-   * Verificar si el usuario está autenticado.
-   * @returns Una promesa que resuelve `true` o `false`.
-   */
+  // Método para verificar si el usuario está autenticado
   async isAuthenticated(): Promise<boolean> {
-    const token = localStorage.getItem('authToken');
-    return token !== null; // Verifica si el token existe en el almacenamiento local.
+    const userEmail = await this.storage.get('userEmail');
+    const userPassword = await this.storage.get('userPassword');
+    return !!(userEmail && userPassword); // Si ambos valores existen, está autenticado
   }
 
-  /**
-   * Cerrar sesión del usuario.
-   * Elimina el token de autenticación del almacenamiento local.
-   */
-  logout(): void {
-    localStorage.removeItem('authToken');
+  // Método para obtener el correo del usuario (si está autenticado)
+  async getUserEmail(): Promise<string | null> {
+    return await this.storage.get('userEmail');
+  }
+
+  // Método para guardar la información del usuario después de iniciar sesión o registrarse
+  async setUserCredentials(email: string, password: string): Promise<void> {
+    const encryptedPassword = CryptoJS.AES.encrypt(password, 'secret-key').toString();
+    await this.storage.set('userEmail', email);
+    await this.storage.set('userPassword', encryptedPassword);
+  }
+
+  // Método para cerrar sesión
+  async logout(): Promise<void> {
+    await this.storage.remove('userEmail');
+    await this.storage.remove('userPassword');
+    this.router.navigate(['/login']); // Redirige al login
+  }
+
+  // Método para obtener la contraseña encriptada
+  async getUserPassword(): Promise<string | null> {
+    return await this.storage.get('userPassword');
   }
 }
 

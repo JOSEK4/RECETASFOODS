@@ -43,12 +43,8 @@ export class LoginPage {
     }
   }
 
-  async showAlert(message: string) {
-    const alert = await this.alertController.create({
-      header: 'Aviso',
-      message,
-      buttons: ['OK'],
-    });
-    await alert.present();
+  // Método para redirigir al registro
+  goToRegister() {
+    this.router.navigate(['/registro']);  // Redirige a la página de registro
   }
 }
