@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Storage } from '@ionic/storage-angular';
-import * as CryptoJS from 'crypto-js';
+import { AuthService } from '../services/auth.service';
 import { AlertController } from '@ionic/angular';
-
 
 @Component({
   selector: 'app-login',
@@ -14,12 +12,11 @@ import { AlertController } from '@ionic/angular';
 })
 export class LoginPage {
   loginForm: FormGroup;
-  errorMessage: string = ''; // Define la propiedad
 
   constructor(
     private formBuilder: FormBuilder,
+    private authService: AuthService,
     private router: Router,
-    private storage: Storage,
     private alertController: AlertController
   ) {
     this.loginForm = this.formBuilder.group({
@@ -30,31 +27,28 @@ export class LoginPage {
 
   async onLogin() {
     if (this.loginForm.valid) {
-      const email = this.loginForm.get('email')?.value;
-      const password = this.loginForm.get('password')?.value;
-
-      const storedEmail = await this.storage.get('userEmail');
-      const storedEncryptedPassword = await this.storage.get('userPassword');
-
-      if (storedEmail && storedEncryptedPassword) {
-        const bytes = CryptoJS.AES.decrypt(storedEncryptedPassword, 'secret-key');
-        const storedPassword = bytes.toString(CryptoJS.enc.Utf8);
-
-        if (email === storedEmail && password === storedPassword) {
+      const loginData = this.loginForm.value;
+      this.authService.loginUser(loginData).subscribe(
+        async (response) => {
+          localStorage.setItem('authToken', response.token); // Guarda el token
+          await this.showAlert('Inicio de sesión exitoso');
           this.router.navigate(['/home']);
-        } else {
-          this.errorMessage = 'Credenciales incorrectas.';
+        },
+        async (error) => {
+          await this.showAlert('Error al iniciar sesión: ' + error.error.message);
         }
-      } else {
-        this.errorMessage = 'No hay usuarios registrados. Por favor, regístrate.';
-      }
+      );
     } else {
-      this.errorMessage = 'Por favor, completa todos los campos correctamente.';
+      await this.showAlert('Por favor, completa todos los campos correctamente.');
     }
   }
 
-  // Método para redirigir al registro
-  goToRegister() {
-    this.router.navigate(['/registro']);  // Redirige a la página de registro
+  async showAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Aviso',
+      message,
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 }

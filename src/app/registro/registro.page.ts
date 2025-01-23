@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { Storage } from '@ionic/storage-angular';
-import * as CryptoJS from 'crypto-js';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -12,51 +11,51 @@ import { AlertController } from '@ionic/angular';
   standalone: false
 })
 export class RegistroPage {
-  registerForm: FormGroup;
+  registroForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
+    private authService: AuthService,
     private router: Router,
-    private storage: Storage,
     private alertController: AlertController
   ) {
-    this.registerForm = this.formBuilder.group({
+    this.registroForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      lastname: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]],
-    });
+    }, { validators: this.passwordMatchValidator });
   }
 
-  async onRegister() {
-    if (this.registerForm.valid) {
-      const email = this.registerForm.get('email')?.value;
-      const password = this.registerForm.get('password')?.value;
+  passwordMatchValidator(group: FormGroup) {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
+  }
 
-      // Validar si las contraseñas coinciden
-      if (password !== this.registerForm.get('confirmPassword')?.value) {
-        await this.showAlert('Error', 'Las contraseñas no coinciden.');
-        return;
-      }
-
-      // Encriptar la contraseña
-      const encryptedPassword = CryptoJS.AES.encrypt(password, 'secret-key').toString();
-
-      // Guardar credenciales en el almacenamiento
-      await this.storage.set('userEmail', email);
-      await this.storage.set('userPassword', encryptedPassword);
-
-      // Redirigir al login con éxito
-      await this.showAlert('Éxito', 'Registro exitoso. ¡Ahora puedes iniciar sesión!');
-      this.router.navigate(['/login']);
+  async registerUser() {
+    if (this.registroForm.valid) {
+      const registroData = this.registroForm.value;
+      delete registroData.confirmPassword; // Eliminar confirmación antes de enviar
+      this.authService.registerUser(registroData).subscribe(
+        async () => {
+          await this.showAlert('Registro exitoso. Ahora puedes iniciar sesión.');
+          this.router.navigate(['/login']);
+        },
+        async (error) => {
+          await this.showAlert('Error al registrarse: ' + error.error.message);
+        }
+      );
     } else {
-      await this.showAlert('Error', 'Por favor, completa todos los campos correctamente.');
+      await this.showAlert('Por favor, completa todos los campos correctamente.');
     }
   }
 
-  async showAlert(header: string, message: string) {
+  async showAlert(message: string) {
     const alert = await this.alertController.create({
-      header: header,
-      message: message,
+      header: 'Aviso',
+      message,
       buttons: ['OK'],
     });
     await alert.present();

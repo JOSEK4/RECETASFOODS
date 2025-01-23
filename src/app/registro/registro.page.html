@@ -1,83 +1,51 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Registro</ion-title>
+  <ion-toolbar>
+    <ion-title>Registrarse</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>¡Crea tu cuenta!</ion-card-title>
-    </ion-card-header>
+<ion-content>
+  <form [formGroup]="registroForm" (ngSubmit)="registerUser()">
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+    <ion-note *ngIf="registroForm.get('name')?.hasError('required') && registroForm.get('name')?.touched" color="danger">
+      El nombre es obligatorio.
+    </ion-note>
 
-    <ion-card-content>
-      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-        <ion-item>
-          <ion-label position="floating">Correo Electrónico</ion-label>
-          <ion-input
-            type="email"
-            formControlName="email"
-            [ngClass]="{ 'invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched }"
-          ></ion-input>
-        </ion-item>
-        <ion-note color="danger" *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">
-          Ingrese un correo válido
-        </ion-note>
-        <ion-note color="danger" *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched">
-          El correo es requerido
-        </ion-note>
+    <ion-item>
+      <ion-label position="floating">Apellido</ion-label>
+      <ion-input formControlName="lastname"></ion-input>
+    </ion-item>
+    <ion-note *ngIf="registroForm.get('lastname')?.hasError('required') && registroForm.get('lastname')?.touched" color="danger">
+      El apellido es obligatorio.
+    </ion-note>
 
-        <ion-item>
-          <ion-label position="floating">Contraseña</ion-label>
-          <ion-input
-            type="password"
-            formControlName="password"
-            [ngClass]="{ 'invalid': registerForm.get('password')?.invalid && registerForm.get('password')?.touched }"
-          ></ion-input>
-        </ion-item>
-        <ion-note color="danger" *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched">
-          La contraseña debe tener al menos 6 caracteres
-        </ion-note>
-        <ion-note color="danger" *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
-          La contraseña es requerida
-        </ion-note>
+    <ion-item>
+      <ion-label position="floating">Correo Electrónico</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-note *ngIf="registroForm.get('email')?.hasError('email') && registroForm.get('email')?.touched" color="danger">
+      Ingresa un correo válido.
+    </ion-note>
 
-        <ion-item>
-          <ion-label position="floating">Confirmar Contraseña</ion-label>
-          <ion-input
-            type="password"
-            formControlName="confirmPassword"
-            [ngClass]="{ 'invalid': registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched }"
-          ></ion-input>
-        </ion-item>
-        <ion-note color="danger" *ngIf="registerForm.get('confirmPassword')?.hasError('required') && registerForm.get('confirmPassword')?.touched">
-          La confirmación de contraseña es requerida
-        </ion-note>
-        <ion-note color="danger" *ngIf="registerForm.errors?.['passwordMismatch']">
-          Las contraseñas no coinciden
-        </ion-note>
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <ion-note *ngIf="registroForm.get('password')?.hasError('minlength') && registroForm.get('password')?.touched" color="danger">
+      La contraseña debe tener al menos 6 caracteres.
+    </ion-note>
 
+    <ion-item>
+      <ion-label position="floating">Confirmar Contraseña</ion-label>
+      <ion-input type="password" formControlName="confirmPassword"></ion-input>
+    </ion-item>
+    <ion-note *ngIf="registroForm.errors?.['mismatch'] && registroForm.get('confirmPassword')?.touched" color="danger">
+      Las contraseñas no coinciden.
+    </ion-note>
 
-        <ion-button expand="block" type="submit" [disabled]="registerForm.invalid" color="primary" class="ion-margin-top">
-          Registrarme
-        </ion-button>
-      </form>
-    </ion-card-content>
-  </ion-card>
- 
-
-  <ion-content class="ion-padding">
-    <!-- Botón de Google (solo ícono) -->
-    <ion-button expand="block" color="danger">
-      <ion-icon slot="start" name="logo-google"></ion-icon>
-      Registrarse con Google
-    </ion-button>
-
-    <!-- Botón de Facebook (solo ícono) -->
-    <ion-button expand="block" color="primary">
-      <ion-icon slot="start" name="logo-facebook"></ion-icon>
-      Registrarse con Facebook
-    </ion-button>
-  </ion-content>
-
+    <ion-button expand="block" type="submit" [disabled]="!registroForm.valid">Registrar</ion-button>
+  </form>
 </ion-content>
