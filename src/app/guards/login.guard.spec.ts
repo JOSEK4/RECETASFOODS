@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { CanActivateFn } from '@angular/router';
 
-import { introGuard } from './intro.guard';
+import { loginGuard } from './login.guard';
 
-describe('introGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) =>
-      TestBed.runInInjectionContext(() => introGuard(...guardParameters));
+describe('loginGuard', () => {
+  const executeGuard: CanActivateFn = (...guardParameters) => 
+      TestBed.runInInjectionContext(() => loginGuard(...guardParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
@@ -14,7 +14,4 @@ describe('introGuard', () => {
   it('should be created', () => {
     expect(executeGuard).toBeTruthy();
   });
-
 });
-
-
