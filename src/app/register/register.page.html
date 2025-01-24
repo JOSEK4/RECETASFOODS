@@ -7,7 +7,7 @@
 <ion-content >
   <form [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm.value)">
 
-    <!-- User -->
+   
     <ion-item>
       <ion-input label="User" labelPlacement="floating"  formControlName="user"></ion-input>
     </ion-item>
@@ -20,7 +20,7 @@
       </ng-container>
     </div>
 
-<!-- name -->
+
     <ion-item>
       <ion-input label="Name" labelPlacement="floating"  formControlName="name"></ion-input>
     </ion-item>
@@ -33,7 +33,7 @@
       </ng-container>
     </div>
 
-<!-- lastname -->
+
     <ion-item>
       <ion-input label="Lastname" labelPlacement="floating"  formControlName="lastname"></ion-input>
     </ion-item>
@@ -46,7 +46,7 @@
       </ng-container>
     </div>
 
-<!-- Email -->
+
     <ion-item>
       <ion-input label="Email" labelPlacement="floating" placeholder="Example@gmial.com" formControlName="email"></ion-input>
     </ion-item>
@@ -59,7 +59,7 @@
       </ng-container>
     </div>
 
-<!-- Password -->
+
     <ion-item>
       <ion-input label="Password" type="password" labelPlacement="floating" placeholder="******" formControlName="password"></ion-input>
     </ion-item>
@@ -72,7 +72,6 @@
       </ng-container>
     </div>
 
-<!-- Password Confirmation-->
     <ion-item>
       <ion-input label="Password Confirmation" type="password" labelPlacement="floating" placeholder="******" formControlName="passwordConfirmation"></ion-input>
     </ion-item>
@@ -84,14 +83,10 @@
         </ion-text>
       </ng-container>
     </div>
-<ion-button
-  expand="block"
-  type="submit"
-  [disabled]="!registerForm.valid"
-  fill="solid"
-  shape="round"
-  color="primary"
->
-  Registrar
-</ion-button>
 
+
+
+    <ion-button type="submit" expand="block" [disabled]="!registerForm.valid">Registrar</ion-button>
+
+  </form>
+</ion-content>

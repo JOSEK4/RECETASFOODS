@@ -1,78 +1,67 @@
-:host {
-  ion-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #f5f6fa; /* Fondo suave */
-    height: 100%;
-    padding: 20px;
-  }
 
-  .form-container {
-    width: 100%;
-    max-width: 420px;
-    background: #ffffff;
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
+ion-content {
+  --background: #9ea0a7; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  height: 100%; 
+}
 
-  .form-title {
-    font-size: 26px;
-    font-weight: bold;
-    color: #2f3640;
-    margin-bottom: 20px;
-  }
 
-  ion-item {
-    --border-radius: 10px;
-    margin-bottom: 20px;
-    background: #ffffff;
-    padding: 0;
-    --highlight-background: #f7f7f7;
-  }
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px; 
+}
 
-  ion-input {
-    --padding-start: 10px;
-    --padding-end: 10px;
-  }
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #3880ff; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+  object-fit: cover; 
+}
 
-  ion-button {
-    margin-top: 20px;
-    --background: #3498db; /* Botón azul */
-    --border-radius: 25px;
-    --color: white;
-    font-size: 16px;
-    width: 100%;
-    padding: 12px;
-    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+ion-title {
+  font-size: 24px; 
+  font-weight: bold; 
+  margin-bottom: 20px; 
+}
+ion-item {
+  --border-radius: 10px; 
+  --background: rgb(19, 211, 245); 
+  margin: 10px 0; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
 
-    &:disabled {
-      background: #bdc3c7;
-    }
-  }
+ion-input {
+  font-size: 14px; 
+}
 
-  .forgot-password {
-    font-size: 14px;
-    color: #3498db;
-    cursor: pointer;
-    margin-top: 10px;
-  }
+ion-button {
+  margin-top: 20px; 
+  --background: #3880ff; 
+  --border-radius: 8px; 
+  font-size: 16px;
+  font-weight: bold; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+}
 
-  .social-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
 
-  .social-buttons ion-button {
-    width: 45%;
-    border-radius: 25px;
-  }
 
-  .social-buttons ion-icon {
-    margin-right: 10px;
-  }
+.error-container {
+  margin: 5px 0 15px; 
+}
+
+ion-label[color="danger"] {
+  font-size: 12px; 
+  margin-left: 5px;
+}
+
+.error-message {
+  margin-top: 15px; 
+  text-align: center; 
 }

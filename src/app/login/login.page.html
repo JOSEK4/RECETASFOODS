@@ -4,20 +4,67 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-    <ion-item>
-      <ion-label position="floating">Correo Electrónico</ion-label>
-      <ion-input type="email" formControlName="email"></ion-input>
-    </ion-item>
+<ion-content class="ion-padding">
+  
+  <figure class="avatar-container">
+    <img
+      class="avatar"
+      alt="Usuario"
+      src="https://ionicframework.com/docs/img/demos/avatar.svg"
+    />
+  </figure>
 
+  
+  <form [formGroup]="loginForm">
+   
     <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
+      <ion-input
+        label="Correo electrónico"
+        labelPlacement="floating"
+        placeholder="ejemplo@correo.com"
+        formControlName="email">
+      </ion-input>
     </ion-item>
+   
+    <div class="error-container">
+      <ion-label *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched" color="danger">
+        El correo electrónico es obligatorio.
+      </ion-label>
+      <ion-label *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched" color="danger">
+        Ingresa un correo electrónico válido.
+      </ion-label>
+    </div>
 
-    <ion-button expand="block" type="submit" [disabled]="!loginForm.valid">Iniciar Sesión</ion-button>
+   
+    <ion-item>
+      <ion-input
+        label="Contraseña"
+        labelPlacement="floating"
+        type="password"
+        placeholder="********"
+        formControlName="password">
+      </ion-input>
+    </ion-item>
+    
+    <div class="error-container">
+      <ion-label *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched" color="danger">
+        La contraseña es obligatoria.
+      </ion-label>
+    </div>
+
+    
+    <ion-button expand="block" type="submit" [disabled]="loginForm.invalid" (click)="onLogin()">
+      Iniciar Sesión
+    </ion-button>
+
+   
+    <ion-label class="error-message" color="danger" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </ion-label>
+
+   
+    <ion-button expand="block" (click)="goToRegister()">
+      Crear cuenta
+    </ion-button>
   </form>
-
-  <ion-button expand="block" routerLink="/register" color="secondary">Registrarse</ion-button>
 </ion-content>
