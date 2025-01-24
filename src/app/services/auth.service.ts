@@ -16,8 +16,8 @@ export class AuthService {
   login(credentials: any){
     return new Promise((accept, reject) => {
       let params = {
-        "user": { 
-          "email": credentials.email, 
+        "user": {
+          "email": credentials.email,
           "password": credentials.password
          }
       }

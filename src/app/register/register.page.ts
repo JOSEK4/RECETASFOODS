@@ -15,15 +15,15 @@ export class RegisterPage implements OnInit {
     user: [
       { type: 'required', message: 'El usuario es obligatorio' },
       { type: 'minlength', message: 'El usuario debe tener al menos 5 caracteres' },
-     
+
     ],
     name: [
       { type: 'required', message: 'El nombre es obligatorio' },
-      
+
     ],
     lastname: [
       { type: 'required', message: 'El apellido es obligatorio' },
-      
+
     ],
 
     email: [
@@ -46,13 +46,18 @@ export class RegisterPage implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private navCtrl: NavController
-  ) { 
+  ) {
     this.registerForm = this.formBuilder.group({
-      email: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.email
-      ]))
-    })
+      user: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      passwordConfirmation: [
+        '',
+        [Validators.required, Validators.minLength(6)],
+      ],
+    });
   }
 
   ngOnInit() {

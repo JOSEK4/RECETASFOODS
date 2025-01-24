@@ -1,31 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController, NavController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
-
-
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.page.html',
   styleUrls: ['./menu.page.scss'],
-  standalone: false,
+  standalone: false
 })
 export class MenuPage implements OnInit {
+
   constructor(
     private menu: MenuController,
-    private navCrtl: NavController,
+    private navCtrl: NavController,
     private storage: Storage
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
-  closeMenu() {
+  closeMenu(){
     this.menu.close();
   }
 
-  logOut() {
-    this.storage.remove('isUserLoggedIn');
-    this.navCrtl.navigateRoot('/login');
-    this.menu.close
+  log_out(){
+    this.storage.remove("isUserLoggedIn");
+    this.navCtrl.navigateRoot("/login");
   }
 
 }

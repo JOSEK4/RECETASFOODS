@@ -1,70 +1,51 @@
-<ion-header>
+<ion-header >
   <ion-toolbar>
-    <ion-title>Iniciar Sesión</ion-title>
+    <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  
-  <figure class="avatar-container">
-    <img
-      class="avatar"
-      alt="Usuario"
-      src="https://ionicframework.com/docs/img/demos/avatar.svg"
-    />
-  </figure>
+<ion-content >
+  <ion-avatar>
+    <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+  </ion-avatar>
 
-  
-  <form [formGroup]="loginForm">
-   
+  <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
+
     <ion-item>
-      <ion-input
-        label="Correo electrónico"
-        labelPlacement="floating"
-        placeholder="ejemplo@correo.com"
-        formControlName="email">
-      </ion-input>
+      <ion-input label="Email" labelPlacement="floating" placeholder="Example@gmial.com" formControlName="email"></ion-input>
     </ion-item>
-   
-    <div class="error-container">
-      <ion-label *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched" color="danger">
-        El correo electrónico es obligatorio.
-      </ion-label>
-      <ion-label *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched" color="danger">
-        Ingresa un correo electrónico válido.
-      </ion-label>
+
+    <div>
+      <ng-container *ngFor="let error of formErrors.email">
+        <ion-text color="danger" *ngIf="(loginForm.get('email')?.hasError(error.type) && loginForm.get('email')?.dirty)">
+          {{ error.message }}
+        </ion-text>
+      </ng-container>
     </div>
 
-   
+    <!-- Password -->
     <ion-item>
-      <ion-input
-        label="Contraseña"
-        labelPlacement="floating"
-        type="password"
-        placeholder="********"
-        formControlName="password">
-      </ion-input>
+      <ion-input label="Password" type="password" labelPlacement="floating" placeholder="******" formControlName="password"></ion-input>
     </ion-item>
-    
-    <div class="error-container">
-      <ion-label *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched" color="danger">
-        La contraseña es obligatoria.
-      </ion-label>
+
+    <div>
+      <ng-container *ngFor="let error of formErrors.password">
+        <ion-text color="danger" *ngIf="(loginForm.get('password')?.hasError(error.type) && loginForm.get('password')?.dirty)">
+          {{ error.message }}
+        </ion-text>
+      </ng-container>
     </div>
 
-    
-    <ion-button expand="block" type="submit" [disabled]="loginForm.invalid" (click)="onLogin()">
-      Iniciar Sesión
+    <ion-button type="submit" [disabled]="!loginForm.valid" expand="block" fill="solid" shape="round" color="primary">
+      Login
     </ion-button>
 
-   
-    <ion-label class="error-message" color="danger" *ngIf="errorMessage">
-      {{ errorMessage }}
-    </ion-label>
-
-   
-    <ion-button expand="block" (click)="goToRegister()">
-      Crear cuenta
-    </ion-button>
   </form>
+
+  <p>{{ errorMessage }}</p>
+
+  <div style="text-align: center; margin-top: 10px;">
+    <a routerLink="/register">¿No tiene una cuenta? Regístrese aquí</a>
+  </div>
+
 </ion-content>
