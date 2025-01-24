@@ -13,15 +13,10 @@ export class IntroPage implements OnInit {
 
   ngOnInit() {}
 
-  async finish() {
+  finish(){
     console.log('Finish');
-    try {
-      await this.storage.set('vilaintro', true); 
-      console.log('Storage set successfully');
-      await this.router.navigateByUrl('/login'); 
-    } catch (error) {
-      console.error('Error setting storage:', error);
-    }
+    this.storage.set('viLaIntro', true); // GUARDAMOS EN EL STORAGE QUE YA SE HA MOSTRADO LA INTRODUCCIÓN
+    this.router.navigateByUrl('/home'); 
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { PostService } from '../services/post.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -7,53 +7,17 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class HomePage {
-  categorias = [
-    { nombre: 'Desayunos', icono: 'cafe' },
-    { nombre: 'Almuerzos', icono: 'restaurant' },
-    { nombre: 'Cenas', icono: 'moon' },
-    { nombre: 'Postres', icono: 'ice-cream' },
-  ];
+  posts: any;
+  constructor(
+    private postService: PostService
+  ) {}
 
-  recetas = [
-    {
-      nombre: 'Pancakes',
-      descripcion: 'Deliciosos pancakes con miel y frutas.',
-      imagen: 'assets/img/pancakes.jpg',
-      categoria: 'Desayunos',
-    },
-    {
-      nombre: 'Ensalada César',
-      descripcion: 'Una ensalada fresca y saludable.',
-      imagen: 'assets/img/ensalada-cesar.jpg',
-      categoria: 'Almuerzos',
-    },
-    {
-      nombre: 'Brownies',
-      descripcion: 'Brownies de chocolate con nueces.',
-      imagen: 'assets/img/brownies.jpg',
-      categoria: 'Postres',
-    },
-  ];
-
-  recetasFiltradas = [...this.recetas];
-
-  constructor() {}
-
-  buscarRecetas(event: any) {
-    const query = event.target.value.toLowerCase();
-    this.recetasFiltradas = this.recetas.filter((receta) =>
-      receta.nombre.toLowerCase().includes(query)
-    );
+  ngOnInit(){
+    console.log('Home Page');
+    this.postService.getPosts().then((data: any)=>{
+      console.log(data);
+      this.posts = data;
+    })
   }
 
-  filtrarPorCategoria(categoria: any) {
-    this.recetasFiltradas = this.recetas.filter(
-      (receta) => receta.categoria === categoria.nombre
-    );
-  }
-
-  agregarReceta() {
-    console.log('Agregar receta clickeado');
-    // Aquí podrías redirigir a una página para agregar recetas
-  }
 }

@@ -1,60 +1,54 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
-import * as CryptoJS from 'crypto-js';
-import { AlertController } from '@ionic/angular';
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  standalone: false
+  standalone: false,
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
   loginForm: FormGroup;
-  errorMessage: string = ''; // Define la propiedad
-
+  errorMessage: any;
+  formErrors = {
+    email: [
+      { type: 'required', message: 'El correo es obligatorio' },
+      { type: 'email', message: 'El correo no es valido' }
+    ]
+  }
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
-    private storage: Storage,
-    private alertController: AlertController
-  ) {
+    private authService: AuthService,
+    private navCtrl: NavController,
+    private storage: Storage
+  ) { 
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      email: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.email
+      ])),
+      password: new FormControl('', Validators.compose([
+        Validators.minLength(6),
+        Validators.required
+      ]))
+    })
+  }
+
+  ngOnInit() {
+  }
+
+  loginUser(credentials: any){
+    this.authService.login(credentials).then(res => {
+      console.log(res);
+      this.errorMessage = '';
+      this.storage.set('isUserLoggedIn', true);
+      this.navCtrl.navigateForward('/menu/home');
+    }).catch(err => {
+      console.log(err);
+      this.errorMessage = err;
     });
   }
 
-  async onLogin() {
-    if (this.loginForm.valid) {
-      const email = this.loginForm.get('email')?.value;
-      const password = this.loginForm.get('password')?.value;
-
-      const storedEmail = await this.storage.get('userEmail');
-      const storedEncryptedPassword = await this.storage.get('userPassword');
-
-      if (storedEmail && storedEncryptedPassword) {
-        const bytes = CryptoJS.AES.decrypt(storedEncryptedPassword, 'secret-key');
-        const storedPassword = bytes.toString(CryptoJS.enc.Utf8);
-
-        if (email === storedEmail && password === storedPassword) {
-          this.router.navigate(['/home']);
-        } else {
-          this.errorMessage = 'Credenciales incorrectas.';
-        }
-      } else {
-        this.errorMessage = 'No hay usuarios registrados. Por favor, regístrate.';
-      }
-    } else {
-      this.errorMessage = 'Por favor, completa todos los campos correctamente.';
-    }
-  }
-
-  
-  goToRegister() {
-    this.router.navigate(['/register']); 
-  }
 }

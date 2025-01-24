@@ -1,48 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Recetas Deliciosas</ion-title>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <!-- Barra de búsqueda -->
-  <ion-searchbar
-    placeholder="Buscar recetas..."
-    (ionInput)="buscarRecetas($event)">
-  </ion-searchbar>
-
-  <!-- Categorías -->
-  <ion-grid>
-    <ion-row>
-      <ion-col size="6" *ngFor="let categoria of categorias">
-        <ion-card (click)="filtrarPorCategoria(categoria)">
-          <ion-card-content class="categoria-card">
-            <ion-icon [name]="categoria.icono" size="large"></ion-icon>
-            <p>{{ categoria.nombre }}</p>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <!-- Recetas destacadas -->
   <ion-list>
-    <ion-item *ngFor="let receta of recetasFiltradas">
-      <ion-thumbnail slot="start">
-        <img [src]="receta.imagen" alt="{{ receta.nombre }}">
-      </ion-thumbnail>
-      <ion-label>
-        <h2>{{ receta.nombre }}</h2>
-        <p>{{ receta.descripcion }}</p>
-      </ion-label>
-    </ion-item>
+      <ion-card *ngFor="let post of posts">
+          <img src="{{post.image}}" class="image-post" />
+          <ion-card-header>
+              <ion-card-subtitle>
+                  <ion-avatar class="user-avatar">
+                      <img 
+                      [src]="post.user.image ? post.user.image : 'assets/images/default-avatar.jpeg'"
+                      />
+                  </ion-avatar>
+                  {{post.user.name}}
+              </ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+              {{post.description}}
+          </ion-card-content>
+      </ion-card>
   </ion-list>
-
-  <!-- Botón flotante -->
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="agregarReceta()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>
-
