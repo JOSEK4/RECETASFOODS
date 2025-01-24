@@ -1,6 +1,6 @@
 
 ion-content {
-  --background: linear-gradient(135deg, #8e44ad, #3498db); /* Fondo degradado igual que en login */
+  --background: linear-gradient(135deg, #8e44ad, #3498db);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,7 +30,7 @@ ion-item {
 
 ion-button {
   margin-top: 20px;
-  --background: #3498db; /* Mismo azul que en el login */
+  --background: #3498db; 
   --border-radius: 20px;
   font-size: 16px;
   font-weight: bold;
@@ -46,14 +46,13 @@ ion-button:hover {
 
 ion-text {
   font-size: 14px;
-  color: #e74c3c; /* Rojo para resaltar errores */
-  margin-top: 5px;
+  color: #e74c3c;
   text-align: center;
 }
 
 p {
   text-align: center;
-  color: #34495e; /* Gris para mensajes adicionales */
+  color: #34495e;
   font-weight: bold;
   font-size: 14px;
 }
