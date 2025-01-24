@@ -1,67 +1,81 @@
-
 ion-content {
-  --background: #9ea0a7; 
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  padding: 20px;
+}
+
+.form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  height: 100%; 
+  width: 100%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-
-.avatar-container {
+ion-avatar {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px; 
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  margin: 20px auto;
+  border: 4px solid white;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-.avatar {
-  width: 100px;
-  height: 100px;
+ion-avatar img {
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  border: 3px solid #3880ff; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
-  object-fit: cover; 
+  object-fit: cover;
 }
 
-ion-title {
-  font-size: 24px; 
-  font-weight: bold; 
-  margin-bottom: 20px; 
-}
 ion-item {
-  --border-radius: 10px; 
-  --background: rgb(19, 211, 245); 
-  margin: 10px 0; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-}
-
-ion-input {
-  font-size: 14px; 
+  --border-radius: 15px;
+  --background: rgba(255, 255, 255, 0.95);
+  margin: 20px 0;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 ion-button {
-  margin-top: 20px; 
-  --background: #3880ff; 
-  --border-radius: 8px; 
+  margin-top: 30px;
+  --background: #3b5998;
+  --border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+ion-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+a {
+  color: #ffffff;
+  text-decoration: underline;
   font-size: 16px;
-  font-weight: bold; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
-
-
-.error-container {
-  margin: 5px 0 15px; 
+a:hover {
+  color: #ffcc00;
 }
 
-ion-label[color="danger"] {
-  font-size: 12px; 
-  margin-left: 5px;
-}
-
-.error-message {
-  margin-top: 15px; 
-  text-align: center; 
+p {
+  text-align: center;
+  color: #ff3e3e;
+  font-weight: bold;
+  font-size: 14px;
 }
