@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Storage } from '@ionic/storage-angular';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
-import {defineCustomElements }    from '@ionic/pwa-elements/loader';
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
 defineCustomElements(window);
 @Component({
   selector: 'app-account',
