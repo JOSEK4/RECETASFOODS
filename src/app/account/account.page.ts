@@ -13,6 +13,7 @@ defineCustomElements(window);
 })
 export class AccountPage implements OnInit {
   user_data: any = {
+    username: '',
     name: '',
     email: '',
     image: '',
@@ -26,12 +27,14 @@ export class AccountPage implements OnInit {
 
   async ngOnInit() {
     let user: any = await this.storage.get('user');
-    console.log(user, "usuario");
+    console.log(user);
     this.userService.getUser(user.id).then(
       (data: any) => {
+        
         console.log(data);
         this.storage.set('user', data);
         this.user_data = data;
+
       }
     ).catch(
       (error) => {

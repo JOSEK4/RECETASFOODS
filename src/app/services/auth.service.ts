@@ -52,8 +52,8 @@ export class AuthService {
           "password": data.password,
           "password_confirmation": data.password_confirmation,
           "name": data.name,
-          "last_name": data.last_name,
-          "username": data.username
+          "last_name": data.lastname,
+          "username": data.user
         }
       }
       this.http.post(`${this.urlServer}/signup`, params, this.httpHeaders).subscribe(
