@@ -13,7 +13,7 @@ export class LoginPage implements OnInit {
   loginForm: FormGroup;
   errorMessage: any;
   formErrors = {
-    
+
     email: [
       { type: 'required', message: 'El correo es obligatorio' },
       { type: 'email', message: 'El correo no es valido' }
@@ -49,7 +49,7 @@ export class LoginPage implements OnInit {
     this.authService.login(credentials).then((res: any) => {
       console.log(res);
       this.errorMessage = '';
-      this.storage.set('user', res.id);
+      this.storage.set('user', res.user);
       this.storage.set('isUserLoggedIn', true);
       this.navCtrl.navigateForward('/menu/home');
     }).catch(err => {
