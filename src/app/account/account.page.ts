@@ -12,33 +12,35 @@ defineCustomElements(window);
   standalone: false
 })
 export class AccountPage implements OnInit {
-  user_data: any = {
-    username: '',
-    name: '',
-    email: '',
-    image: '',
-    followed_users: [],
-    following_users: []
-  };
+  user_data: any;
+  loadingUserData: boolean = false;
   constructor(
     private userService: UserService,
     private storage: Storage
-  ) { }
+  ) {
+    this.getUser();
+  }
 
-  async ngOnInit() {
+  ngOnInit() {
+
+  }
+
+  async getUser(){
+    this.loadingUserData = true;
     let user: any = await this.storage.get('user');
     console.log(user);
     this.userService.getUser(user.id).then(
       (data: any) => {
-        
+
         console.log(data);
         this.storage.set('user', data);
         this.user_data = data;
-
+        this.loadingUserData = false;
       }
     ).catch(
       (error) => {
         console.log(error);
+        this.loadingUserData = false;
       });
   }
 
