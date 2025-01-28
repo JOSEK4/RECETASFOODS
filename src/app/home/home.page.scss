@@ -1,75 +1,120 @@
 
-ion-card {
-  margin: 10px auto;
-  width: 160%;
-  max-width: 1500px;
-  border-radius: 10px;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-
+ion-header {
+  --background: #ffffff;
+  --color: #1877f2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.image-post {
+ion-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+ion-toolbar {
+  --padding-start: 16px;
+  --padding-end: 16px;
+}
+
+
+ion-list {
+  margin: 16px 8px;
+  background-color: #f0f2f5;
+  border-radius: 12px;
+}
+
+ion-card {
+  margin: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+ion-card img.image-post {
   width: 100%;
   height: auto;
   object-fit: cover;
-  border-radius: 10px;
 }
 
 ion-card-header {
   display: flex;
   align-items: center;
-  padding: 10px;
-  background-color: white;
-  border-bottom: 1px solid #ddd;
+  gap: 12px;
+  background-color: #ffffff;
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 ion-avatar.user-avatar {
-  margin-right: 10px;
-  width:40px;
+  width: 40px;
   height: 40px;
-  border-radius: 50%;
 }
 
-ion-card-subtitle {
-  font-size: 14px;
-  color: #333;
+ion-avatar.user-avatar img {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #1877f2;
 }
 
 ion-card-content {
-  font-size: 14px;
+  padding: 12px;
+  font-size: 0.95rem;
   color: #333;
-  padding: 10px;
-  background-color: white;
-  border-top: 1px solid #f2f2f2;
+  background-color: #ffffff;
 }
 
-.interaction-buttons {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  background-color: white;
-  border-top: 1px solid #f2f2f2;
+
+ion-fab-button {
+  --background: #1877f2;
+  --color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-ion-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 10px;
-  color: #666;
+ion-fab-button:hover {
+  filter: brightness(1.2);
 }
 
-ion-button ion-icon {
-  margin-right: 5px;
+/
+ion-infinite-scroll-content {
+  --background: transparent;
+  color: #555;
+  font-size: 0.9rem;
 }
 
-ion-button:hover {
-  background-color: #f2f2f2;
-  border-radius: 50px;
+
+@media (max-width: 768px) {
+  ion-card {
+    margin: 12px;
+  }
+
+  ion-card-header {
+    padding: 8px;
+  }
+
+  ion-avatar.user-avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  ion-card-content {
+    font-size: 0.9rem;
+  }
 }
 
-ion-button:focus {
-  outline: none;
-  box-shadow: none;
+@media (max-width: 480px) {
+  ion-card {
+    margin: 8px;
+  }
+
+  ion-card-header {
+    padding: 6px;
+  }
+
+  ion-avatar.user-avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  ion-card-content {
+    font-size: 0.85rem;
+  }
 }
