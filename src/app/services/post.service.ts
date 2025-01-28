@@ -13,7 +13,7 @@ export class PostService {
     private http: HttpClient
   ) { }
 
-  getPosts(){
+  getPosts(page: number, limit: number){
     return new Promise((accept, reject) => {
       this.http.get(`${this.urlServer}/posts`, this.httpHeaders).subscribe(
         (data: any)=>{
