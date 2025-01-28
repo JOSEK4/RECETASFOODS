@@ -1,11 +1,13 @@
+
 ion-content {
   --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100px;
+  min-height: 100vh;
   padding: 20px;
 }
+
 
 .form-container {
   display: flex;
@@ -13,17 +15,15 @@ ion-content {
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 500px;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 30px;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 25px;
   border-radius: 20px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
+
 ion-avatar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 120px;
   height: 120px;
   margin: 20px auto;
@@ -38,22 +38,26 @@ ion-avatar img {
   object-fit: cover;
 }
 
+
 ion-item {
   --border-radius: 15px;
   --background: rgba(255, 255, 255, 0.95);
-  margin: 20px 0;
+  margin: 15px 0;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
+
 ion-button {
-  margin-top: 30px;
+  margin-top: 25px;
   --background: #3b5998;
   --border-radius: 30px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   padding: 15px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
 }
 
 ion-button:hover {
@@ -61,21 +65,58 @@ ion-button:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
+
 a {
-  color: #ffffff;
-  text-decoration: underline;
-  font-size: 16px;
+  color: #3b5998;
+  text-decoration: none;
+  font-size: 14px;
   font-weight: bold;
   transition: color 0.3s ease;
+  margin-top: 15px;
 }
 
 a:hover {
   color: #ffcc00;
 }
 
+
 p {
   text-align: center;
   color: #ff3e3e;
   font-weight: bold;
   font-size: 14px;
+  margin-top: 10px;
+}
+
+
+@media (max-width: 600px) {
+  .form-container {
+    padding: 20px;
+  }
+
+  ion-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  ion-button {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  a {
+    font-size: 12px; 
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .form-container {
+    max-width: 350px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .form-container {
+    max-width: 400px;
+  }
 }
