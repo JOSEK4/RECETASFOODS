@@ -1,0 +1,198 @@
+
+ion-content {
+  --background: #f0f2f5;
+}
+
+swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+}
+
+.slide-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+  filter: brightness(0.8);
+}
+
+.slide-content {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  padding: 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.slide-content .title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.slide-content .description {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.slide-content ion-button {
+  --background: #1877f2;
+  --color: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+.slide-content .close-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 1.5rem;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.slide-content .icon {
+  font-size: 3rem;
+  color: #f9c74f;
+  margin: 20px 0;
+}
+
+
+img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  max-width: 100%;
+}
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+form div {
+  width: 100%;
+  max-width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+form div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+form div p {
+  position: absolute;
+  color: #666;
+  font-size: 1rem;
+  padding: 0 10px;
+}
+
+ion-item {
+  --background: #ffffff;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+ion-footer {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: #ffffff;
+}
+
+ion-footer ion-button {
+  --background: #1877f2;
+  --color: #ffffff;
+  font-size: 1rem;
+  border-radius: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .slide-content .title {
+    font-size: 1.8rem;
+  }
+
+  .slide-content .description {
+    font-size: 1rem;
+  }
+
+  .slide-content ion-button {
+    font-size: 0.9rem;
+  }
+
+  .card-image {
+    height: 150px;
+  }
+
+  form div {
+    max-width: 250px;
+    height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide-content .title {
+    font-size: 1.5rem;
+  }
+
+  .slide-content .description {
+    font-size: 0.9rem;
+  }
+
+  .slide-content ion-button {
+    font-size: 0.85rem;
+    padding: 8px 16px;
+  }
+
+  .card-image {
+    height: 120px;
+  }
+
+  form div {
+    max-width: 200px;
+    height: 200px;
+  }
+}
