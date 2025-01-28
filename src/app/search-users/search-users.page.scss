@@ -1,0 +1,114 @@
+/* Estilos generales */
+ion-header {
+  --background: #ffffff; /* Fondo blanco para estilo limpio */
+  --color: #1877f2; /* Azul característico tipo Facebook */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ion-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+ion-toolbar {
+  --padding-start: 16px;
+  --padding-end: 16px;
+}
+
+/* Estilo del buscador */
+ion-searchbar {
+  --background: #f0f2f5; /* Gris claro tipo Facebook */
+  --border-radius: 24px;
+  --color: #333;
+  margin: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+}
+
+/* Lista de usuarios */
+ion-list {
+  margin-top: 16px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+ion-item {
+  border-bottom: 1px solid #e0e0e0;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  align-items: center;
+}
+
+ion-avatar img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #1877f2;
+}
+
+ion-label h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+/* Botón de seguir/dejar de seguir */
+ion-button {
+  --background: transparent;
+  --color: #1877f2;
+  font-size: 1rem;
+}
+
+ion-icon {
+  font-size: 1.4rem;
+}
+
+/* Efecto hover para ítems */
+ion-item:hover {
+  background-color: #f0f2f5;
+  transition: background-color 0.3s;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  ion-label h2 {
+    font-size: 0.9rem;
+  }
+
+  ion-avatar img {
+    width: 40px;
+    height: 40px;
+  }
+
+  ion-button {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  ion-toolbar {
+    --padding-start: 8px;
+    --padding-end: 8px;
+  }
+
+  ion-searchbar {
+    margin: 8px;
+  }
+
+  ion-item {
+    --padding-start: 12px;
+    --padding-end: 12px;
+  }
+
+  ion-avatar img {
+    width: 36px;
+    height: 36px;
+  }
+
+  ion-label h2 {
+    font-size: 0.85rem;
+  }
+}
