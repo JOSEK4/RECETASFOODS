@@ -12,8 +12,9 @@ import { Storage } from '@ionic/storage-angular';
 export class MenuPage implements OnInit {
   user: any = {
     name: '',
+    last_name: '',
     email: '',
-    image: 'assets/img/default-avatar.jpeg'
+    image: 'assets/img/default-avatar.jpeg' 
   };
 
   menuItems = [
@@ -31,8 +32,12 @@ export class MenuPage implements OnInit {
   async ngOnInit() {
     await this.loadUserData();
   }
-  loadUserData() {
-    throw new Error('Method not implemented.');
+
+  async loadUserData() {
+    const storedUser = await this.storage.get('user');
+    if (storedUser) {
+      this.user = storedUser;
+    }
   }
 
   closeMenu() {
@@ -44,8 +49,9 @@ export class MenuPage implements OnInit {
     this.closeMenu();
   }
 
-  log_out() {
-    this.storage.remove("isUserLoggedIn");
+  async log_out() {
+    await this.storage.remove("user");
+    await this.storage.remove("isUserLoggedIn");
     this.navCtrl.navigateRoot("/login");
   }
 }

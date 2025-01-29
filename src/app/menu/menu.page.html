@@ -15,11 +15,11 @@
       <ion-list>
         <ion-item>
           <ion-avatar slot="start">
-            <img [src]="user.image" />
+            <img [src]="user?.image ? user.image : 'assets/img/default-avatar.jpeg'" />
           </ion-avatar>
           <ion-label>
-            <h2>{{ user.name }}</h2>
-            <p>{{ user.email }}</p>
+            <h2>{{ user?.name }} {{ user?.last_name }}</h2>
+            <p>{{ user?.email }}</p>
           </ion-label>
         </ion-item>
       </ion-list>
