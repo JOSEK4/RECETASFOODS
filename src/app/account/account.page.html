@@ -1,20 +1,49 @@
-<ion-header >
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
-</ion-toolbar>
+    <ion-title>Perfil</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleEditMode()">
+        <ion-icon [name]="editMode ? 'checkmark' : 'create'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ng-container *ngIf="!loadingUserData">
-    <ion-title>{{user_data?.name}} {{user_data?.last_name}}</ion-title>
+   
     <ion-avatar (click)="takePhoto()">
       <img [src]="user_data?.image ? user_data.image : 'assets/img/default-avatar.jpeg'"/>
     </ion-avatar>
-    <p>usuario: {{user_data?.username}}</p>
-    <p>Seguidores: {{user_data?.followed_users.length}}</p>
-    <p>Siguiendo: {{user_data?.following_users.length}}</p>
+
+
+    <div *ngIf="!editMode">
+      <ion-title>{{user_data?.name}} {{user_data?.last_name}}</ion-title>
+      <p>Usuario: {{user_data?.username}}</p>
+      <p>Seguidores: {{user_data?.followed_users.length}}</p>
+      <p>Siguiendo: {{user_data?.following_users.length}}</p>
+    </div>
+
+
+    <form *ngIf="editMode">
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input [(ngModel)]="editedUser.name" name="name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Apellido</ion-label>
+        <ion-input [(ngModel)]="editedUser.last_name" name="last_name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Usuario</ion-label>
+        <ion-input [(ngModel)]="editedUser.username" name="username"></ion-input>
+      </ion-item>
+    </form>
   </ng-container>
 
   <ng-template *ngIf="loadingUserData">
