@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
+import { RouterModule, Routes } from '@angular/router';
 import { MenuPage } from './menu.page';
 
 const routes: Routes = [
@@ -10,20 +9,27 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () => import('../home/home.module').then( m => m.HomePageModule)
+        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
       },
-   
       {
-      path: 'account',
-      loadChildren: () => 
-        import('../account/account.module').then( m => m.AccountPageModule)
+        path: 'account',
+        loadChildren: () => import('../account/account.module').then(m => m.AccountPageModule)
       },
-    ]    
+      {
+        path: 'search-users',
+        loadChildren: () => import('../search-users/search-users.module').then(m => m.SearchUsersPageModule)
+      },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
+      }
+    ]
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class MenuPageRoutingModule {}
+export class MenuRoutingModule { }

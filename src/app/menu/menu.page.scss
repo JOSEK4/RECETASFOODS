@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #f8f9fa;
+}
+
+
+.menu-list {
+  padding: 10px 0;
+}
+
+ion-item {
+  --padding-start: 16px;
+  --inner-padding-end: 16px;
+  font-size: 1rem;
+  --color: #0f6bc7;
+  --background-hover: rgba(0, 123, 255, 0.1);
+}
+
+ion-item:hover {
+  background-color: rgba(241, 93, 7, 0.1);
+}
+
+.menu-footer {
+  margin-top: auto;
+  padding: 16px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #00050a;
+}
