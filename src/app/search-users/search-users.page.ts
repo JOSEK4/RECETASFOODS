@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Storage } from '@ionic/storage-angular';
+
 @Component({
   selector: 'app-search-users',
   templateUrl: './search-users.page.html',
@@ -12,67 +13,99 @@ export class SearchUsersPage implements OnInit {
   page: number = 1;
   limit: number = 10;
   query: string = '';
-  hasHoreUsers: boolean = true;
+  hasMoreUsers: boolean = true;
+  current_user: any;
 
   constructor(
     private userService: UserService,
     private storage: Storage
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.current_user = await this.storage.get('user');
     this.loadUsers();
   }
 
-  async loadUsers(event?: any){
-    const currentUser = await this.storage.get('user');
-    const followingUers = currentUser.following_users || [];
-    this.userService.listUsers(this.page, this.limit, this.query).then(
-      (data: any) => {
-        if (data.users.length > 0){
-          const updateUsers = data.users.map((user: any) => ({
-            ...user,
-            is_following: followingUers.some((followedUser: any) => followedUser.id == user.id),
-          }));
+  async loadUsers(event?: any) {
+    try {
+      const followingUsers = this.current_user?.followees || [];
+      const data: any = await this.userService.listUsers(this.page, this.limit, this.query);
 
-          this.users = [...this.users, ...data.users];
-          this.page++;
-        }else{
-          this.hasHoreUsers = false;
-        }
-        if (event){
-          event.target.complete();
-        }
+      if (data.users.length > 0) {
+        this.users = [
+          ...this.users,
+          ...data.users.map((user: any) => ({
+            ...user,
+            is_following: followingUsers.some((followedUser: any) => followedUser.id === user.id)
+          }))
+        ];
+        this.page++;
+      } else {
+        this.hasMoreUsers = false;
       }
-    ).catch(
-      (error) => {
-        console.log(error);
+
+      if (event) {
         event.target.complete();
       }
-    );
-  }
-
-  searchUsers(event?: any){
-    this.query = event.target.value || '';
-    this.page = 1;
-    this.users = [];
-    this.hasHoreUsers = true;
-    this.loadUsers();
-  }
-
-  follow(user_id: any){
-    console.log('follow', user_id);
-  }
-
-  unfollow(user_id: any){
-    console.log('unfollow', user_id);
-  }
-
-  toggleFollow(user: any){
-    if (user.is_following){
-      this.unfollow(user.id);
-    }else{
-      this.follow(user.id);
+    } catch (error) {
+      console.log(error);
+      if (event) {
+        event.target.complete();
+      }
     }
   }
 
+  searchUsers(event: any) {
+    this.query = event.target.value || '';
+    this.page = 1;
+    this.users = [];
+    this.hasMoreUsers = true;
+    this.loadUsers();
+  }
+
+  follow(followee_id: any) {
+    console.log('follow', followee_id);
+    const user_id = this.current_user.id;
+
+    this.userService.followUser(user_id, followee_id).then(
+      (data: any) => {
+        console.log(data);
+        this.users = this.users.map(user => {
+          if (user.id === followee_id) {
+            return { ...user, is_following: true };
+          }
+          return user;
+        });
+      }
+    ).catch(error => {
+      console.log(error);
+    });
+  }
+
+  unfollow(followee_id: any) {
+    console.log('unfollow', followee_id);
+    const user_id = this.current_user.id;
+
+    this.userService.unfollowUser(user_id, followee_id).then(
+      (data: any) => {
+        console.log(data);
+        this.users = this.users.map(user => {
+          if (user.id === followee_id) {
+            return { ...user, is_following: false };
+          }
+          return user;
+        });
+      }
+    ).catch(error => {
+      console.log(error);
+    });
+  }
+
+  toggleFollow(user: any) {
+    if (user.is_following) {
+      this.unfollow(user.id);
+    } else {
+      this.follow(user.id);
+    }
+  }
 }

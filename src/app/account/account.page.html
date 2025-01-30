@@ -14,7 +14,7 @@
 
 <ion-content>
   <ng-container *ngIf="!loadingUserData">
-   
+
     <ion-avatar (click)="takePhoto()">
       <img [src]="user_data?.image ? user_data.image : 'assets/img/default-avatar.jpeg'"/>
     </ion-avatar>
@@ -23,8 +23,8 @@
     <div *ngIf="!editMode">
       <ion-title>{{user_data?.name}} {{user_data?.last_name}}</ion-title>
       <p>Usuario: {{user_data?.username}}</p>
-      <p>Seguidores: {{user_data?.followees.length}}</p>
-      <p>Siguiendo: {{user_data?.followers.length}}</p>
+      <p>Seguidores: {{user_data?.followers.length}}</p>
+      <p>Siguiendo: {{user_data?.followees.length}}</p>
     </div>
 
 
