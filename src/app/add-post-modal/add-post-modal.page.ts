@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostService } from '../services/post.service';
 import { Storage } from '@ionic/storage-angular';
 import { ModalController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 defineCustomElements(window);
 @Component({
   selector: 'app-add-post-modal',
@@ -20,8 +21,9 @@ export class AddPostModalPage implements OnInit {
     private formBuilder: FormBuilder,
     private postService: PostService,
     private storage: Storage,
-    private modalController: ModalController
-  ) { 
+    private modalController: ModalController,
+    public alertController: AlertController
+  ) {
     this.addPostForm = this.formBuilder.group({
       description: new FormControl('', Validators.required),
       image: new FormControl('', Validators.required)
@@ -66,5 +68,50 @@ export class AddPostModalPage implements OnInit {
       }
     );
   }
+  async presentPhotoOptions() {
+    const alert = await this.alertController.create({
+      header: "Seleccione una opción",
+      message: "¿De dónde desea obtener la imagen?",
+      buttons:[
+        {
+          text: "Cámara",
+          handler: () => {
+            this.takePhoto(CameraSource.Camera);
+          }
+        },
+        {
+          text: "Galería",
+          handler: () => {
+            this.takePhoto(CameraSource.Photos);
+          }
+        },
+        {
+          text: "Cancelar",
+          role: "cancel",
+          handler: () => {
+            console.log('Cancelado');
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+  async takePhoto(source: CameraSource = CameraSource.Camera) {
+    console.log('Tomando foto...');
+    try {
+      const capturedPhoto = await Camera.getPhoto({
+        resultType: CameraResultType.DataUrl,
+        source: source,
+        quality: 100
+      });
 
+      console.log('Foto capturada:', capturedPhoto.dataUrl);
+      this.post_image = capturedPhoto.dataUrl;
+      this.addPostForm.patchValue({
+        image: this.post_image
+      });
+    } catch (error) {
+      console.log('Error al tomar la foto:', error);
+    }
+  }
 }

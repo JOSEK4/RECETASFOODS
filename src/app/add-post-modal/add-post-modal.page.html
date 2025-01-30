@@ -7,7 +7,7 @@
 <ion-content>
 
   <form [formGroup]="addPostForm" (ngSubmit)="addPost(addPostForm.value)">
-    <div (click)="uploadPhone()">
+    <div (click)="presentPhotoOptions()">
       <img [src]="post_image ? post_image : 'assets/images/place_holder.jpeg'" />
       <p *ngIf="!post_image">Haz click para subir una imagen</p>
     </div>
