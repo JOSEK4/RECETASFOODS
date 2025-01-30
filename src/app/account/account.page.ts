@@ -63,7 +63,7 @@ export class AccountPage implements OnInit {
     this.userService.updateUser(this.editedUser).then(
       (data) => {
         console.log('Usuario actualizado:', data)
-        this.user_data = { ...this.editedUser }; 
+        this.user_data = { ...this.editedUser };
         this.storage.set('user', this.user_data);
       }
     ).catch((error) => {
@@ -71,7 +71,7 @@ export class AccountPage implements OnInit {
     });
   }
 
-  
+
   async takePhoto(source: CameraSource = CameraSource.Camera) {
     console.log('Tomando foto...');
     try {

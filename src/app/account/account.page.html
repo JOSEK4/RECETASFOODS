@@ -15,7 +15,7 @@
 <ion-content>
   <ng-container *ngIf="!loadingUserData">
 
-    <ion-avatar (click)="takePhoto()">
+    <ion-avatar (click)="presentPhotoOptions()">
       <img [src]="user_data?.image ? user_data.image : 'assets/img/default-avatar.jpeg'"/>
     </ion-avatar>
 
