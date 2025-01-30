@@ -5,14 +5,16 @@ ion-header {
 
 ion-toolbar {
   --background: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 ion-title {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
   color: #333;
   text-align: center;
-  margin: 16px 0;
 }
 
 
@@ -26,11 +28,12 @@ ion-content {
 
 
 ion-avatar {
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
-  margin: 10px auto;
+  margin: 15px auto;
   overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
 }
@@ -41,22 +44,40 @@ ion-avatar:hover {
 
 ion-avatar img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
 
 
-ion-content p {
-  font-size: 16px;
-  color: #666;
+ion-title, p {
   text-align: center;
-  margin: 4px 0;
+  color: #34495e;
+  margin: 5px 0;
+}
+
+p {
+  font-size: 16px;
+  font-weight: 500;
 }
 
 
-ion-button {
+ion-buttons ion-button {
   font-size: 18px;
   color: #007aff;
-  margin-right: 10px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+ion-buttons ion-button:hover {
+  background: rgba(0, 122, 255, 0.1);
+  transform: scale(1.1);
+}
+
+
+ion-item {
+  --border-radius: 10px;
+  --background: rgba(255, 255, 255, 0.9);
+  margin: 10px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -66,12 +87,11 @@ ion-button {
   }
 
   ion-avatar {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
   }
 
-  ion-content p {
+  p {
     font-size: 14px;
   }
 }
-

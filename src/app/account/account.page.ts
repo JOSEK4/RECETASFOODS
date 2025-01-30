@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { Storage } from '@ionic/storage-angular';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
+import { AlertController } from '@ionic/angular';
 
 defineCustomElements(window);
 
@@ -17,10 +18,13 @@ export class AccountPage implements OnInit {
   editedUser: any = {};
   loadingUserData: boolean = false;
   editMode: boolean = false;
+  followees: any[] = [];
+  followers: any[] = [];
 
   constructor(
     private userService: UserService,
-    private storage: Storage
+    private storage: Storage,
+    public alertController: AlertController
   ) {
     this.getUser();
   }
@@ -67,17 +71,22 @@ export class AccountPage implements OnInit {
     });
   }
 
-  async takePhoto() {
+  
+  async takePhoto(source: CameraSource = CameraSource.Camera) {
     console.log('Tomando foto...');
-    const capturedPhoto = await Camera.getPhoto({
-      resultType: CameraResultType.DataUrl,
-      source: CameraSource.Camera,
-      quality: 100
-    });
+    try {
+      const capturedPhoto = await Camera.getPhoto({
+        resultType: CameraResultType.DataUrl,
+        source: source,
+        quality: 100
+      });
 
-    console.log('Foto capturada:', capturedPhoto.dataUrl);
-    this.editedUser.image = capturedPhoto.dataUrl;
-    this.updatePhoto();
+      console.log('Foto capturada:', capturedPhoto.dataUrl);
+      this.editedUser.image = capturedPhoto.dataUrl;
+      this.updatePhoto();
+    } catch (error) {
+      console.log('Error al tomar la foto:', error);
+    }
   }
 
   async updatePhoto() {
@@ -90,5 +99,34 @@ export class AccountPage implements OnInit {
     ).catch((error) => {
       console.log('Error al actualizar foto:', error);
     });
+  }
+
+  async presentPhotoOptions() {
+    const alert = await this.alertController.create({
+      header: "Seleccione una opción",
+      message: "¿De dónde desea obtener la imagen?",
+      buttons:[
+        {
+          text: "Cámara",
+          handler: () => {
+            this.takePhoto(CameraSource.Camera);
+          }
+        },
+        {
+          text: "Galería",
+          handler: () => {
+            this.takePhoto(CameraSource.Photos);
+          }
+        },
+        {
+          text: "Cancelar",
+          role: "cancel",
+          handler: () => {
+            console.log('Cancelado');
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 }
