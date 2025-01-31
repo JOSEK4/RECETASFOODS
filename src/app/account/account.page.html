@@ -21,7 +21,7 @@
 
 
     <div *ngIf="!editMode">
-      <ion-title>{{user_data?.name}} {{user_data?.last_name}}</ion-title>
+      <p class="user-name">{{ user_data?.name }} {{ user_data?.last_name }}</p>
       <p>Usuario: {{user_data?.username}}</p>
       <p>Seguidores: {{user_data?.followers.length}}</p>
       <p>Siguiendo: {{user_data?.followees.length}}</p>
