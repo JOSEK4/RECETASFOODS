@@ -93,6 +93,7 @@ export class AccountPage implements OnInit {
 
       console.log('Foto capturada:', capturedPhoto.dataUrl);
       this.editedUser.image = capturedPhoto.dataUrl;
+      this.user_data.image = capturedPhoto.dataUrl;
       this.updatePhoto();
     } catch (error) {
       console.log('Error al tomar la foto:', error);

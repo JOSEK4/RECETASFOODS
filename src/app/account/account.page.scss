@@ -32,8 +32,14 @@ ion-avatar {
   cursor: pointer;
 }
 
-ion-avatar:hover {
-  transform: scale(1.1);
+ion-avatar.editable {
+  cursor: pointer; /* Cambia el cursor cuando se puede editar */
+  border-color: #4c8dff;
+  transition: transform 0.3s ease-in-out;
+}
+
+ion-avatar.editable:hover {
+  transform: scale(1.05);
 }
 
 ion-avatar img {
