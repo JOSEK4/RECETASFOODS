@@ -29,11 +29,11 @@ export class MenuPage implements OnInit {
     private storage: Storage
   ) {}
 
-  async ngOnInit() {
-    await this.loadUserData();
-    window.addEventListener('userUpdated', async () => {
-      console.log('🔄 Usuario actualizado, recargando menú...');
-      await this.loadUserData();
+  ngOnInit() {
+    this.loadUserData();
+  
+    window.addEventListener('userUpdated', () => {
+      this.loadUserData();
     });
   }
 

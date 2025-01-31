@@ -5,6 +5,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import { AlertController, LoadingController } from '@ionic/angular';
 
+
 defineCustomElements(window);
 
 @Component({
@@ -34,23 +35,34 @@ export class AccountPage implements OnInit {
 
   async getUser() {
     this.loadingUserData = true;
+  
+    
     let user: any = await this.storage.get('user');
-    console.log(user);
-
+    console.log("Usuario en almacenamiento:", user);
+  
+    if (!user || !user.id) {
+      console.error("Error: No se encontró un usuario válido en el almacenamiento.");
+      this.loadingUserData = false;
+      return;
+    }
+  
+    
     this.userService.getUser(user.id).then(
       (data: any) => {
-        console.log(data);
+        console.log("Datos recibidos del usuario:", data);
+        
+       
         this.storage.set('user', data);
         this.user_data = data;
         this.editedUser = { ...data };
+  
         this.loadingUserData = false;
       }
     ).catch((error) => {
-      console.log(error);
+      console.error("Error al obtener usuario desde el servicio:", error);
       this.loadingUserData = false;
     });
   }
-
   toggleEditMode() {
     if (this.editMode) {
       this.saveChanges();
@@ -61,19 +73,25 @@ export class AccountPage implements OnInit {
   }
 
   async saveChanges() {
+    if (!this.editedUser.id) {
+      console.error("Error: No se encontró ID de usuario para actualizar.");
+      return;
+    }
+  
     const loading = await this.loadingController.create({
       message: 'Actualizando...',
       spinner: 'circles',
     });
     await loading.present();
-
+  
     this.userService.updateUser(this.editedUser).then(
       async (data) => {
+        console.log('Usuario actualizado:', data);
         this.user_data = { ...this.editedUser };
         await this.storage.set('user', this.user_data);
         window.dispatchEvent(new Event('userUpdated'));
         await loading.dismiss();
-        console.log('Usuario actualizado:', data);
+        
       }
     ).catch(async (error) => {
       console.log('Error al actualizar usuario:', error);
@@ -100,17 +118,27 @@ export class AccountPage implements OnInit {
   }
 
   async updatePhoto() {
-    this.userService.updateUser({ image: this.editedUser.image }).then(
+    const user = await this.storage.get('user');
+  
+    if (!user || !user.id) {
+      console.error("Error: No se encontró un usuario válido para actualizar la foto.");
+      return;
+    }
+  
+    const updatedData = { id: user.id, image: this.editedUser.image };
+  
+    this.userService.updateUser(updatedData).then(
       (data) => {
         console.log('Foto actualizada:', data);
         this.user_data.image = this.editedUser.image;
         this.storage.set('user', this.user_data);
+        window.dispatchEvent(new Event('userUpdated')); 
       }
     ).catch((error) => {
-      console.log('Error al actualizar foto:', error);
+      console.error('Error al actualizar foto:', error);
     });
   }
-
+  
   async presentPhotoOptions() {
     const alert = await this.alertController.create({
       header: "Seleccione una opción",
