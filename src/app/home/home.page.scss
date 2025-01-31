@@ -6,9 +6,13 @@ ion-header {
 }
 
 ion-title {
-  font-size: 1.5rem;
+  font-size: 22px;
   font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-top: 10px;
 }
+
 
 ion-toolbar {
   --padding-start: 16px;
