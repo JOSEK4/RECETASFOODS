@@ -15,7 +15,7 @@
 <ion-content>
   <ng-container *ngIf="!loadingUserData">
 
-    <ion-avatar (click)="presentPhotoOptions()">
+    <ion-avatar [class.editable]="editMode" (click)="editMode ? presentPhotoOptions() : null">
       <img [src]="user_data?.image ? user_data.image : 'assets/img/default-avatar.jpeg'"/>
     </ion-avatar>
 
