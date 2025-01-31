@@ -71,6 +71,7 @@ export class AccountPage implements OnInit {
       async (data) => {
         this.user_data = { ...this.editedUser };
         await this.storage.set('user', this.user_data);
+        window.dispatchEvent(new Event('userUpdated'));
         await loading.dismiss();
         console.log('Usuario actualizado:', data);
       }
