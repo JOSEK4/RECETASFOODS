@@ -50,7 +50,7 @@ export class AddPostModalPage implements OnInit {
 
   async addPost(post_data: any) {
     if (!post_data.description || !post_data.image || this.isUploading) {
-      console.log("❌ Falta información o ya se está subiendo.");
+      console.log(" Falta información o ya se está subiendo.");
       return;
     }
 
@@ -82,7 +82,7 @@ export class AddPostModalPage implements OnInit {
       this.modalController.dismiss({ success: true }); 
 
     } catch (error) {
-      console.error('❌ Error al crear el post:', error);
+      console.error(' Error al crear el post:', error);
 
       await loading.dismiss(); 
       this.isUploading = false;
