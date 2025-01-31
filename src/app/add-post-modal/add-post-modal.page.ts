@@ -4,8 +4,8 @@ import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostService } from '../services/post.service';
 import { Storage } from '@ionic/storage-angular';
-import { ModalController } from '@ionic/angular';
-import { AlertController } from '@ionic/angular';
+import { ModalController, AlertController, LoadingController } from '@ionic/angular';
+
 defineCustomElements(window);
 @Component({
   selector: 'app-add-post-modal',
@@ -16,12 +16,14 @@ defineCustomElements(window);
 export class AddPostModalPage implements OnInit {
   post_image: any;
   addPostForm: FormGroup;
+  isUploading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private postService: PostService,
     private storage: Storage,
     private modalController: ModalController,
+    private loadingController: LoadingController,
     public alertController: AlertController
   ) {
     this.addPostForm = this.formBuilder.group({
@@ -46,27 +48,45 @@ export class AddPostModalPage implements OnInit {
     });
   }
 
-  async addPost(post_data: any){
-    console.log('Add Post');
-    console.log(post_data);
-    const user = await this.storage.get('user');
-    const post_param = {
-      post: {
-        description: post_data.description,
-        image: post_data.image,
-        user_id: user.id
-      }
+  async addPost(post_data: any) {
+    if (!post_data.description || !post_data.image || this.isUploading) {
+      console.log(" Falta información o ya se está subiendo.");
+      return;
     }
-    console.log(post_param, 'post para enviar');
-    this.postService.createPost(post_param).then(
-      (data: any) => {
-        console.log(data, 'post creado');
-        this.modalController.dismiss({null: null});
-      },
-      (error) => {
-        console.log(error, 'error');
-      }
-    );
+
+    this.isUploading = true; 
+
+    
+    const loading = await this.loadingController.create({
+      message: 'Publicando...',
+      spinner: 'circles'
+    });
+    await loading.present();
+
+    try {
+      const user = await this.storage.get('user');
+      const post_param = {
+        post: {
+          description: post_data.description,
+          image: post_data.image,
+          user_id: user.id
+        }
+      };
+
+      console.log(post_param, ' Enviando post...');
+      const response = await this.postService.createPost(post_param);
+      console.log(' Post creado:', response);
+
+      await loading.dismiss(); 
+      this.isUploading = false;
+      this.modalController.dismiss({ success: true }); 
+
+    } catch (error) {
+      console.error(' Error al crear el post:', error);
+
+      await loading.dismiss(); 
+      this.isUploading = false;
+    }
   }
   async presentPhotoOptions() {
     const alert = await this.alertController.create({

@@ -60,9 +60,17 @@ export class RegisterPage implements OnInit {
     return (formGroup: FormGroup) => {
       const passControl = formGroup.controls[password];
       const confirmPassControl = formGroup.controls[passwordConfirmation];
+<<<<<<< HEAD
       if (confirmPassControl.errors && !confirmPassControl.errors['mustMatch']) {
         return;
       }
+=======
+
+      if (confirmPassControl.errors && !confirmPassControl.errors['mustMatch']) {
+        return;
+      }
+
+>>>>>>> 858864b31b1832ecdd8bf01d628c06581319ad6c
       if (passControl.value !== confirmPassControl.value) {
         confirmPassControl.setErrors({ mustMatch: true });
       } else {
@@ -70,10 +78,18 @@ export class RegisterPage implements OnInit {
       }
     };
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 858864b31b1832ecdd8bf01d628c06581319ad6c
   registerUser(registerData: any) {
     if (this.registerForm.invalid) {
       return;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 858864b31b1832ecdd8bf01d628c06581319ad6c
     this.authService.register(registerData)
       .then(() => {
         this.errorMessage = '';

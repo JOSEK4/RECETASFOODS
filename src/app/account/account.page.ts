@@ -3,7 +3,7 @@ import { UserService } from '../services/user.service';
 import { Storage } from '@ionic/storage-angular';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 defineCustomElements(window);
 
@@ -24,7 +24,8 @@ export class AccountPage implements OnInit {
   constructor(
     private userService: UserService,
     private storage: Storage,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public loadingController: LoadingController
   ) {
     this.getUser();
   }
@@ -60,14 +61,23 @@ export class AccountPage implements OnInit {
   }
 
   async saveChanges() {
+    const loading = await this.loadingController.create({
+      message: 'Actualizando...',
+      spinner: 'circles',
+    });
+    await loading.present();
+
     this.userService.updateUser(this.editedUser).then(
-      (data) => {
-        console.log('Usuario actualizado:', data)
+      async (data) => {
         this.user_data = { ...this.editedUser };
-        this.storage.set('user', this.user_data);
+        await this.storage.set('user', this.user_data);
+        window.dispatchEvent(new Event('userUpdated'));
+        await loading.dismiss();
+        console.log('Usuario actualizado:', data);
       }
-    ).catch((error) => {
+    ).catch(async (error) => {
       console.log('Error al actualizar usuario:', error);
+      await loading.dismiss();
     });
   }
 
