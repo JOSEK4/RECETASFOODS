@@ -14,7 +14,7 @@ export class MenuPage implements OnInit {
     name: '',
     last_name: '',
     email: '',
-    image: 'assets/img/default-avatar.jpeg' 
+    image: 'assets/img/default-avatar.jpeg'
   };
 
   menuItems = [
@@ -32,7 +32,7 @@ export class MenuPage implements OnInit {
   async ngOnInit() {
     await this.loadUserData();
     window.addEventListener('userUpdated', async () => {
-      console.log('🔄 Usuario actualizado, recargando menú...');
+      console.log(' Usuario actualizado, recargando menú...');
       await this.loadUserData();
     });
   }
