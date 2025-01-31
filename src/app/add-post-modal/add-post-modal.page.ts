@@ -73,7 +73,7 @@ export class AddPostModalPage implements OnInit {
         }
       };
 
-      console.log(post_param, '📤 Enviando post...');
+      console.log(post_param, ' Enviando post...');
       const response = await this.postService.createPost(post_param);
       console.log(' Post creado:', response);
 
